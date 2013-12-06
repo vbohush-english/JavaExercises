@@ -9,7 +9,7 @@ public class Exercise04 {
 		Scanner input = new Scanner(System.in);
 		double pounds = input.nextDouble();
 		input.close();
-		System.out.println(pounds + " pounds is " + pounds*0.454 + " kilograms");
+		System.out.println(pounds + " pounds is " + (pounds * 0.454) + " kilograms");
 	}
 
 }
