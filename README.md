@@ -1,1 +1,54 @@
 Exercises from the book "Introduction to Java Programming, 9th Edition" by Liang Y.D.
+
+Chapter  1 - 12 exercises
+Chapter  2 - 27 exercises
+Chapter  3 - 35 exercises
+Chapter  4 - 47 exercises
+Chapter  5 - 39 exercises
+Chapter  6 - 34 exercises
+Chapter  7 - 36 exercises
+Chapter  8 - 14 exercises
+Chapter  9 - 31 exercises
+Chapter 10 - 21 exercises
+Chapter 11 - 12 exercises
+Chapter 12 - 14 exercises
+Chapter 13 - 32 exercises
+Chapter 14 - 29 exercises
+Chapter 15 - 22 exercises
+Chapter 16 - 40 exercises
+Chapter 17 - 21 exercises
+Chapter 18 - 37 exercises
+Chapter 19 - 21 exercises
+Chapter 20 - 39 exercises
+Chapter 21 - 10 exercises
+Chapter 22 - 22 exercises
+Chapter 23 - 10 exercises
+Chapter 24 - 25 exercises
+Chapter 25 - 20 exercises
+Chapter 26 - 11 exercises
+Chapter 27 - 24 exercises
+Chapter 28 - 9 exercises
+Chapter 29 - 5 exercises
+Chapter 30 - 25 exercises
+Chapter 31 - 17 exercises
+Chapter 32 - 21 exercises
+Chapter 33 - 10 exercises
+Chapter 34 - 10 exercises
+Chapter 35 - 11 exercises
+Chapter 36 - 6 exercises
+Chapter 37 - 10 exercises
+Chapter 38 - 9 exercises
+Chapter 39 - 14 exercises
+Chapter 40 - 11 exercises
+Chapter 41 - 8 exercises
+Chapter 42 - 14 exercises
+Chapter 43 - 20 exercises
+Chapter 44 - 12 exercises
+Chapter 45 - 5 exercises
+Chapter 46 - 8 exercises
+Chapter 47 - 7 exercises
+Chapter 48 - 4 exercises
+Chapter 49 - 18 exercises
+Chapter 50 - 4 exercises
+
+Total      - 943 exercises
