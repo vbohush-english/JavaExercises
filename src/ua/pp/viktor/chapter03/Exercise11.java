@@ -18,7 +18,7 @@ public class Exercise11 {
 		case 3: days = 31; System.out.print("March"); break;
 		case 4: days = 30; System.out.print("April"); break;
 		case 5: days = 31; System.out.print("May"); break;
-		case 6: days = 30; System.out.print("Junu"); break;
+		case 6: days = 30; System.out.print("June"); break;
 		case 7: days = 31; System.out.print("July"); break;
 		case 8: days = 31; System.out.print("August"); break;
 		case 9: days = 30; System.out.print("September"); break;
