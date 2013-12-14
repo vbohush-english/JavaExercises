@@ -9,8 +9,7 @@ public class Exercise19 {
 		double side1 = input.nextDouble();
 		double side2 = input.nextDouble();
 		double side3 = input.nextDouble();
-		input.close();
-		
+		input.close();		
 		if (isValid(side1, side2, side3)) {
 			System.out.println("The area of triangle is " + area(side1, side2, side3));
 		} else {

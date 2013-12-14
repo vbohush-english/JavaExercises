@@ -16,6 +16,7 @@ public class Exercise21 {
 		System.out.println("The distance between the two points is " + getDistance(latitude1, longitude1, latitude2, longitude2) + " km");
 	}
 	
+	
 	public static double getDistance(double x1, double y1, double x2, double y2) {
 		final double RADIUS = 6371.01;
 		return RADIUS * Math.acos(Math.sin(Math.toRadians(x1)) * Math.sin(Math.toRadians(x2)) + 

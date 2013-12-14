@@ -18,8 +18,7 @@ public class Exercise22 {
 		while (Math.abs(lastGuess - nextGuess) > 0.0001) {
 			lastGuess = nextGuess;
 			nextGuess = (lastGuess + n / lastGuess) / 2.0;
-		}
-		
+		}		
 		return nextGuess;
 	}
 

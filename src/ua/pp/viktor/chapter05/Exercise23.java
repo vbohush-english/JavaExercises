@@ -20,7 +20,7 @@ public class Exercise23 {
 		double angleA = getAngle(a, b, c);
 		double angleB = getAngle(b, a, c);
 		double angleC = getAngle(c, b, a);
-		System.out.printf("The three angles are %.2f  %.2f  %.2f", angleA, angleB, angleC);
+		System.out.printf("The three angles are: %.2f  %.2f  %.2f", angleA, angleB, angleC);
 	}
 	
 	public static double getAngle(double a, double b, double c) {
