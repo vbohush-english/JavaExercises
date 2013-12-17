@@ -12,7 +12,7 @@ public class Exercise34 {
 				chessboard[j] = tmp % chessboardSize;
 			if (!isHorizonalFine(chessboard))
 				continue;			
-			if (!isDiagonal1Fine(chessboard))
+			if (!isDiagonalFine(chessboard))
 				continue;			
 			printChessboard(chessboard);
 			count++;
@@ -20,7 +20,17 @@ public class Exercise34 {
 		System.out.println("Number of possible solutions: " + count);
 	}
 	
-	public static boolean isDiagonal1Fine(int[] chessboard) {
+	public static boolean isHorizonalFine(int[] chessboard) {
+		boolean[] numbers = new boolean[chessboard.length];
+		for (int i = 0; i < chessboard.length; i++)
+			numbers[chessboard[i]] = true;
+		for (int i = 0; i < numbers.length; i++)
+			if (!numbers[i])
+				return false;
+		return true;	
+	}
+	
+	public static boolean isDiagonalFine(int[] chessboard) {
 		for (int i = 0; i < chessboard.length; i++) {
 			for (int j = i + 1; j < chessboard.length; j++) {
 				if (chessboard[j] - chessboard[i] == j - i) 
@@ -41,14 +51,4 @@ public class Exercise34 {
 		System.out.println();
 	}
 	
-	public static boolean isHorizonalFine(int[] chessboard) {
-		boolean[] numbers = new boolean[chessboard.length];
-		for (int i = 0; i < chessboard.length; i++)
-			numbers[chessboard[i]] = true;
-		for (int i = 0; i < numbers.length; i++)
-			if (!numbers[i])
-				return false;
-		return true;	
-	}
-
 }
