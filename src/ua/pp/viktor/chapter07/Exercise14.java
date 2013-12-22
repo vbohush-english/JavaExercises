@@ -6,8 +6,8 @@ public class Exercise14 {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the size for the matrix: ");
-		int size = 4/*input.nextInt()*/;
+		System.out.print("Enter the size for the matrix: ");
+		int size = input.nextInt();
 		input.close();
 		
 		
