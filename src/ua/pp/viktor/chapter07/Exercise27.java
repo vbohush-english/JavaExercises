@@ -2,7 +2,7 @@ package ua.pp.viktor.chapter07;
 
 import java.util.Scanner;
 
-public class Exercise26 {
+public class Exercise27 {
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
@@ -14,8 +14,8 @@ public class Exercise26 {
 				matrix[i][j] = input.nextDouble();
 			}
 		}
-		double[][] sortedMatrix = sortRows(matrix);
-		System.out.println("The row-sorted array is");
+		double[][] sortedMatrix = sortColumns(matrix);
+		System.out.println("The column-sorted array is");
 		for (int i = 0; i < sortedMatrix.length; i++) {
 			for (int j = 0; j < sortedMatrix[i].length; j++) {
 				System.out.print(sortedMatrix[i][j] + " ");
@@ -24,18 +24,15 @@ public class Exercise26 {
 		}
 	}
 	
-	public static double[][] sortRows(double[][] m) {
-		double[][] result = new double[m.length][m[0].length];		
-		for (int i = 0; i < m.length; i++) {			
-			double[] tmp = new double[m[i].length];			
+	public static double[][] sortColumns(double[][] m) {
+		double[][] result = new double[m.length][m[0].length];
+		for (int i = 0; i < m.length; i++) {
 			for (int j = 0; j < m[i].length; j++) {
-				tmp[j] = m[j][i];
-			}			
-			java.util.Arrays.sort(tmp);			
-			for (int j = 0; j < tmp.length; j++) {
-				result[j][i] = tmp[j];
+				result[i][j] = m[i][j];
 			}
+			java.util.Arrays.sort(result[i]);
 		}
 		return result;
 	}
+	
 }
