@@ -1,8 +1,8 @@
 Exercises from the book "Introduction to Java Programming, 9th Edition" by Liang Y.D.
 
-Chapter  1 - 12 exercises;
-Chapter  2 - 27 exercises;
-Chapter  3 - 35 exercises;
+- Chapter  1 - 12 exercises;
+- Chapter  2 - 27 exercises;
+- Chapter  3 - 35 exercises;
 Chapter  4 - 47 exercises;
 Chapter  5 - 39 exercises;
 Chapter  6 - 34 exercises;
