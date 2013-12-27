@@ -68,10 +68,5 @@ class MyStringBuilder1 {
 		size += s.size;
 		return this;
 	}
-	/*
-	public MyStringBuilder1 append(int i) {
-		
-	}
 
-	*/
 }
