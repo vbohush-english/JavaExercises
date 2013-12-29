@@ -3,66 +3,85 @@ package net.bohush.exercises.chapter10;
 public class Exercise03 {
 
 	public static void main(String[] args) {
-
+		System.out.println(MyInteger.parseInt(new char[] {'1', '6', '0', '4'}));
+		System.out.println(MyInteger.parseInt("1987503"));
 	}
 
 }
 
-class BMI {
-	private String name;
-	private int age;
-	private double weight;
-	private double height;
-	public static final double KILOGRAMS_PER_POUND = 0.45359237;
-	public static final double METERS_PER_INCH = 0.0254;
-
-	public BMI(String name, int age, double weight, double height) {
-		this.name = name;
-		this.age = age;
-		this.weight = weight;
-		this.height = height;
-	}
-
-	public BMI(String name, double weight, double height) {
-		this(name, 20, weight, height);
-	}
-
-	public BMI(String name, int age, double weight, double feet, double inches) {
-		this(name, age, weight, 12 * feet + inches);
+class MyInteger {
+	private int value;
+	
+	public MyInteger(int value) {
+		this.value = value;
 	}
 	
+	public int get() {
+		return value;
+	}
 	
-	public double getBMI() {
-		double bmi = weight * KILOGRAMS_PER_POUND
-				/ ((height * METERS_PER_INCH) * (height * METERS_PER_INCH));
-		return Math.round(bmi * 100) / 100.0;
+	public boolean isEven() {
+		return MyInteger.isEven(value);
+	}
+	
+	public boolean isOdd() {
+		return MyInteger.isOdd(value);
+	}
+	
+	public boolean isPrime() {
+		return MyInteger.isPrime(value);
+	}
+	
+	public static boolean isEven(int value) {
+		return (value % 2) == 0;
+	}
+	
+	public static boolean isOdd(int value) {
+		return (value % 2) == 1;
+	}
+	
+	public static boolean isPrime(int value) {
+		for (int divisor = 2; divisor <= value / 2; divisor++) {
+			if (value % divisor == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean isEven(MyInteger myInteger) {
+		return MyInteger.isEven(myInteger.get());
+	}
+	
+	public static boolean isOdd(MyInteger myInteger) {
+		return MyInteger.isOdd(myInteger.get());
+	}
+	
+	public static boolean isPrime(MyInteger myInteger) {
+		return MyInteger.isPrime(myInteger.get());
+	}
+	
+	public boolean equals(int value) {
+		return this.value == value;
+	}
+	
+	public boolean equals(MyInteger myInteger) {
+		return this.value == myInteger.value;
 	}
 
-	public String getStatus() {
-		double bmi = getBMI();
-		if (bmi < 18.5)
-			return "Underweight";
-		else if (bmi < 25)
-			return "Normal";
-		else if (bmi < 30)
-			return "Overweight";
-		else
-			return "Obese";
+	public String toString() {
+		return String.valueOf(value);
 	}
-
-	public String getName() {
-		return name;
+	
+	public static MyInteger parseInt(char[] charValue) {
+		int result = 0;
+		for (int i = charValue.length - 1, dec = 1; i >= 0; i--, dec *= 10) {
+			result += Character.getNumericValue(charValue[i]) * dec;
+		}
+		return new MyInteger(result);
 	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public double getWeight() {
-		return weight;
-	}
-
-	public double getHeight() {
-		return height;
+	
+	public static MyInteger parseInt(String stringValue) {
+		return parseInt(stringValue.toCharArray());
 	}
 }
