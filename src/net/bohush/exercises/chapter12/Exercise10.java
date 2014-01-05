@@ -11,12 +11,12 @@ public class Exercise10 extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public Exercise10() {
-		setLayout(new GridLayout(10, 10, 0, 0));
+		setLayout(new GridLayout(8, 8, 0, 0));
 		Color nextColor = Color.WHITE;
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 1; i <= 64; i++) {
 			JButton jbTmp = new JButton();
 			jbTmp.setBackground(nextColor);
-			if (i % 10 != 0) {
+			if (i % 8 != 0) {
 				if (nextColor == Color.BLACK) {
 					nextColor = Color.WHITE;
 				} else {
