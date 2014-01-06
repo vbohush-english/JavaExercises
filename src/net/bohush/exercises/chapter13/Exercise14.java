@@ -39,6 +39,7 @@ class DrawBarChart extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		int width = getWidth();
 		int height = getHeight();
 		int step = width / grades.length;

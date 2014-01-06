@@ -39,6 +39,7 @@ class DrawPieChart extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		int width = getWidth();
 		int height = getHeight();
 		int minLen = (width < height ? width : height);
