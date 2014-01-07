@@ -15,7 +15,7 @@ public class Exercise07 extends JFrame {
 			if (next == 0) {
 				add(new JLabel());
 			} else {
-				add(new JLabel(new ImageIcon("image/12_07/" +  (next == 1 ? "o" : "x") + ".gif")));
+				add(new JLabel(new ImageIcon("image/TicTacToe/" +  (next == 1 ? "o" : "x") + ".gif")));
 			}
 		}
 
