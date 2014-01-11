@@ -9,7 +9,7 @@ public class Exercise20 {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		if (args.length != 1) {
-			System.out.println("Execute: java Exercise18 srcRootDirectory");
+			System.out.println("Execute: java Exercise20 srcRootDirectory");
 			System.exit(1);
 		}
 		

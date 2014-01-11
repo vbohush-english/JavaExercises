@@ -6,7 +6,7 @@ import java.util.*;
 public class Exercise22 {
 	public static void main(String[] args) throws Exception {
 		if (args.length != 3) {
-			System.out.println("Usage: java Exercise16 dir oldString newString");
+			System.out.println("Usage: java Exercise22 dir oldString newString");
 			System.exit(1);
 		}
 
