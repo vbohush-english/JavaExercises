@@ -1,47 +1,24 @@
 package net.bohush.exercises.chapter15;
 
-public class Exercise08 {
+public class Exercise11 {
 
 	public static void main(String[] args) {
-		ComparableCircle08 c1 = new ComparableCircle08(7);
-		ComparableCircle08 c2 = new ComparableCircle08(6);
-		if (c1.compareTo(c2) > 0) {
-			System.out.println(c1);
-		} else {
-			System.out.println(c2);
-		}
+		Circle11 c1 = new Circle11(7);
+		Circle11 c2 = new Circle11(8);
+		Circle11 c3 = new Circle11(7);
+		System.out.println(c1.equals(c2));
+		System.out.println(c1.equals(c3));
 	}
 
 }
 
-class ComparableCircle08 extends Circle08 implements Comparable<ComparableCircle08> {
-	
-	public ComparableCircle08() {
-	}
-	
-	public ComparableCircle08(double radius) {
-		super(radius);
-	}
-	
-	@Override
-	public int compareTo(ComparableCircle08 o) {
-		if (getArea() > o.getArea()) {
-			return 1;
-		} else if (getArea() < o.getArea()) {
-			return -1;
-		} else {
-			return 0;
-		}
-	}
-}
-
-class Circle08 extends GeometricObject08 {
+class Circle11 extends GeometricObject11  implements Comparable<Circle11>  {
 	private double radius;
 
-	public Circle08() {
+	public Circle11() {
 	}
 
-	public Circle08(double radius) {
+	public Circle11(double radius) {
 		this.radius = radius;
 	}
 
@@ -82,20 +59,40 @@ class Circle08 extends GeometricObject08 {
 	public String toString() {
 		return super.toString() + "\nradius is " + radius;
 	}
+
+	@Override
+	public int compareTo(Circle11 o) {
+		if (getArea() > o.getArea()) {
+			return 1;
+		} else if (getArea() < o.getArea()) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Circle11) {
+			return radius == ((Circle11)obj).radius;			
+		} else {
+			return false;
+		}
+	}
 }
 
-abstract class GeometricObject08 {
+abstract class GeometricObject11 {
 	private String color = "white";
 	private boolean filled;
 	private java.util.Date dateCreated;
 
 	/** Construct a default geometric object */
-	protected GeometricObject08() {
+	protected GeometricObject11() {
 		dateCreated = new java.util.Date();
 	}
 
 	/** Construct a geometric object with color and filled value */
-	protected GeometricObject08(String color, boolean filled) {
+	protected GeometricObject11(String color, boolean filled) {
 		dateCreated = new java.util.Date();
 		this.color = color;
 		this.filled = filled;

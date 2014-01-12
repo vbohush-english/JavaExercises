@@ -3,24 +3,24 @@ package net.bohush.exercises.chapter15;
 public class Exercise07 {
 
 	public static void main(String[] args) {
-		GeometricObject2 r1 = new Rectangle(100, 200);
-		GeometricObject2 r2 = new Rectangle(120, 180);
-		GeometricObject2 c1 = new Circle(5);
-		GeometricObject2 c2 = new Circle(6);
-		System.out.println(GeometricObject2.max(r1, r2));
-		System.out.println(GeometricObject2.max(c1, c2));
+		GeometricObject07 r1 = new Rectangle07(100, 200);
+		GeometricObject07 r2 = new Rectangle07(120, 180);
+		GeometricObject07 c1 = new Circle07(5);
+		GeometricObject07 c2 = new Circle07(6);
+		System.out.println(GeometricObject07.max(r1, r2));
+		System.out.println(GeometricObject07.max(c1, c2));
 	}
 
 }
 
-class Rectangle extends GeometricObject2 {
+class Rectangle07 extends GeometricObject07 {
 	private double width;
 	private double height;
 
-	public Rectangle() {
+	public Rectangle07() {
 	}
 
-	public Rectangle(double width, double height) {
+	public Rectangle07(double width, double height) {
 		this.width = width;
 		this.height = height;
 	}
@@ -63,13 +63,13 @@ class Rectangle extends GeometricObject2 {
 	}
 }
 
-class Circle extends GeometricObject2 {
+class Circle07 extends GeometricObject07 {
 	private double radius;
 
-	public Circle() {
+	public Circle07() {
 	}
 
-	public Circle(double radius) {
+	public Circle07(double radius) {
 		this.radius = radius;
 	}
 
@@ -112,18 +112,18 @@ class Circle extends GeometricObject2 {
 	}
 }
 
-abstract class GeometricObject2 implements Comparable<GeometricObject2> {
+abstract class GeometricObject07 implements Comparable<GeometricObject07> {
 	private String color = "white";
 	private boolean filled;
 	private java.util.Date dateCreated;
 
 	/** Construct a default geometric object */
-	protected GeometricObject2() {
+	protected GeometricObject07() {
 		dateCreated = new java.util.Date();
 	}
 
 	/** Construct a geometric object with color and filled value */
-	protected GeometricObject2(String color, boolean filled) {
+	protected GeometricObject07(String color, boolean filled) {
 		dateCreated = new java.util.Date();
 		this.color = color;
 		this.filled = filled;
@@ -168,7 +168,7 @@ abstract class GeometricObject2 implements Comparable<GeometricObject2> {
 	/** Abstract method getPerimeter */
 	public abstract double getPerimeter();
 
-	public static GeometricObject2 max(GeometricObject2 o1, GeometricObject2 o2) {
+	public static GeometricObject07 max(GeometricObject07 o1, GeometricObject07 o2) {
 		if (o1.compareTo(o2) > 0) {
 			return o1;
 		} else {
@@ -177,7 +177,7 @@ abstract class GeometricObject2 implements Comparable<GeometricObject2> {
 	}
 
 	@Override
-	public int compareTo(GeometricObject2 o) {
+	public int compareTo(GeometricObject07 o) {
 		if (getArea() > o.getArea()) {
 			return 1;
 		} else if (getArea() < o.getArea()) {
