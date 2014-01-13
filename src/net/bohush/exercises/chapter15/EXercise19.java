@@ -2,7 +2,7 @@ package net.bohush.exercises.chapter15;
 
 import java.util.Scanner;
 
-public class EXercise19 {
+public class Exercise19 {
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
