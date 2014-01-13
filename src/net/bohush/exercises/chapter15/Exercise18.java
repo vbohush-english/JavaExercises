@@ -1,35 +1,55 @@
 package net.bohush.exercises.chapter15;
 
-public class Exercise16 {
+public class Exercise18 {
 
+	/** Main method */
 	public static void main(String[] args) {
-		// Create and initialize two rational numbers r1 and r2.
-		Rational16 r1 = new Rational16(4, 2);
-		Rational16 r2 = new Rational16(2, 3);
+		// Check number of strings passed
+		if (args.length != 1) {
+			System.out.println("Usage: java Calculator \"operand1 operator operand2\"");
+			System.exit(0);
+		}
 
-		// Display results
-		System.out.println(r1 + " + " + r2 + " = " + r1.add(r2));
-		System.out.println(r1 + " - " + r2 + " = " + r1.subtract(r2));
-		System.out.println(r1 + " * " + r2 + " = " + r1.multiply(r2));
-		System.out.println(r1 + " / " + r2 + " = " + r1.divide(r2));
-		System.out.println(r2 + " is " + r2.doubleValue());
+		// The result of the operation
+		Rational18 result = null;
+
+		// The result of the operation
+		String[] tokens = args[0].split(" ");
+		
+		String[] number1 = tokens[0].split("/");
+		String[] number2 = tokens[2].split("/");
+		
+		Rational18 n1 = new Rational18(Long.parseLong(number1[0]), Long.parseLong(number1[1]));
+		Rational18 n2 = new Rational18(Long.parseLong(number2[0]), Long.parseLong(number2[1]));
+
+		// Determine the operator
+		switch (tokens[1].charAt(0)) {
+		case '+': result = n1.add(n2); break;
+		case '-': result = n1.subtract(n2); break;
+		case '*': result = n1.multiply(n2); break;
+		case '/': result = n1.divide(n2);
+		}
+
+		// Display result
+		System.out.println(tokens[0] + ' ' + tokens[1] + ' ' + tokens[2] + " = " + result);
 	}
 
 }
 
-class Rational16 extends Number implements Comparable<Rational16> {
+
+class Rational18 extends Number implements Comparable<Rational18> {
 
 	private static final long serialVersionUID = 1L;
 	// Data fields for numerator and denominator
 	private long[] r = new long[]{0, 1};
 	
 	/** Construct a rational with default properties */
-	public Rational16() {
+	public Rational18() {
 		this(0, 1);
 	}
 
 	/** Construct a rational with specified numerator and denominator */
-	public Rational16(long numerator, long denominator) {
+	public Rational18(long numerator, long denominator) {
 		long gcd = gcd(numerator, denominator);
 		this.r[0] = ((denominator > 0) ? 1 : -1) * numerator / gcd;
 		this.r[1] = Math.abs(denominator) / gcd;
@@ -60,31 +80,31 @@ class Rational16 extends Number implements Comparable<Rational16> {
 	}
 
 	/** Add a rational number to this rational */
-	public Rational16 add(Rational16 secondRational) {
+	public Rational18 add(Rational18 secondRational) {
 		long n = r[0] * secondRational.getDenominator() + r[1] * secondRational.getNumerator();
 		long d = r[1] * secondRational.getDenominator();
-		return new Rational16(n, d);
+		return new Rational18(n, d);
 	}
 
 	/** Subtract a rational number from this rational */
-	public Rational16 subtract(Rational16 secondRational) {
+	public Rational18 subtract(Rational18 secondRational) {
 		long n = r[0] * secondRational.getDenominator() - r[1] * secondRational.getNumerator();
 		long d = r[1] * secondRational.getDenominator();
-		return new Rational16(n, d);
+		return new Rational18(n, d);
 	}
 
 	/** Multiply a rational number to this rational */
-	public Rational16 multiply(Rational16 secondRational) {
+	public Rational18 multiply(Rational18 secondRational) {
 		long n = r[0] * secondRational.getNumerator();
 		long d = r[1] * secondRational.getDenominator();
-		return new Rational16(n, d);
+		return new Rational18(n, d);
 	}
 
 	/** Divide a rational number from this rational */
-	public Rational16 divide(Rational16 secondRational) {
+	public Rational18 divide(Rational18 secondRational) {
 		long n = r[0] * secondRational.getDenominator();
 		long d = r[1] * secondRational.r[0];
-		return new Rational16(n, d);
+		return new Rational18(n, d);
 	}
 
 	@Override
@@ -98,7 +118,7 @@ class Rational16 extends Number implements Comparable<Rational16> {
 	@Override
 	// Override the equals method in the Object class
 	public boolean equals(Object other) {
-		if ((this.subtract((Rational16) (other))).getNumerator() == 0)
+		if ((this.subtract((Rational18) (other))).getNumerator() == 0)
 			return true;
 		else
 			return false;
@@ -130,7 +150,7 @@ class Rational16 extends Number implements Comparable<Rational16> {
 
 	@Override
 	// Implement the compareTo method in Comparable
-	public int compareTo(Rational16 o) {
+	public int compareTo(Rational18 o) {
 		if (this.subtract(o).getNumerator() > 0)
 			return 1;
 		else if (this.subtract(o).getNumerator() < 0)
