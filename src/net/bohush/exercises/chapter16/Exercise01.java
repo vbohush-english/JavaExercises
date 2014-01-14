@@ -65,7 +65,7 @@ public class Exercise01 extends JFrame {
 		frame.setSize(350, 180);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setTitle("Exercise09");
+		frame.setTitle("Exercise01");
 		frame.setVisible(true);
 	}
 
