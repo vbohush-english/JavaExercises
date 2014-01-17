@@ -2,8 +2,7 @@ package net.bohush.exercises.chapter16;
 
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 
@@ -62,33 +61,6 @@ public class Exercise22 extends JFrame{
 			
 		}
 		
-		private void paintNext(Graphics g, int ballNumber, int ballStep) {
-			int size = Math.min(getWidth(), getHeight());
-			int startX = (getWidth() - size) / 2;
-			int startY = (getHeight() - size) / 2;
-			final int OVAL_DIAMETR = (int) (size * 0.04);
-			double step = (size - 20.0) / BEEN_COUNT;
-			
-			g.setColor(Color.BLUE);
-			int nextBX = startX  - (int) (step / 2);
-			int nextBY = startY;
-			
-			int position = 0;
-			for (int j = (BEEN_COUNT - 1); j >= 0; j--) {
-				if (j == ballStep) {
-					position = 0;
-					for (int i = 0; i < j; i++) {
-						if (mashine[ballNumber][i] == 1) {
-							position++;
-						}
-					}
-					g.fillOval(nextBX + 10 + (int)((position + 1) * step) - OVAL_DIAMETR / 2, nextBY + (int)(size * 0.8) - OVAL_DIAMETR / 2, OVAL_DIAMETR, OVAL_DIAMETR);
-				}
-				nextBY = startY - (int)((BEEN_COUNT - j) * ((size * 0.6)) / (BEEN_COUNT - 2));
-				nextBX = startX + (int)((BEEN_COUNT - j) * (step / 2.0)) - (int) (step / 2);
-			}
-		}
-		
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -131,8 +103,27 @@ public class Exercise22 extends JFrame{
 				nextBY = startY - (int)((BEEN_COUNT - j) * ((size * 0.6)) / (BEEN_COUNT - 2));
 				nextBX = startX + (int)((BEEN_COUNT - j) * (step / 2.0));
 			}
+			
+			g.setColor(Color.BLUE);
+			int ballOvalDiametr = (int) (size * 0.04);
 			if (!finished) {
-				paintNext(g, nextBall, nextStep);
+				nextBX = startX  - (int) (step / 2);
+				nextBY = startY;
+				
+				int position = 0;
+				for (int j = (BEEN_COUNT - 1); j >= 0; j--) {
+					if (j == nextStep) {
+						position = 0;
+						for (int i = 0; i < j; i++) {
+							if (mashine[nextBall][i] == 1) {
+								position++;
+							}
+						}
+						g.fillOval(nextBX + 10 + (int)((position + 1) * step) - ballOvalDiametr / 2, nextBY + (int)(size * 0.8) - ballOvalDiametr / 2, ballOvalDiametr, ballOvalDiametr);
+					}
+					nextBY = startY - (int)((BEEN_COUNT - j) * ((size * 0.6)) / (BEEN_COUNT - 2));
+					nextBX = startX + (int)((BEEN_COUNT - j) * (step / 2.0)) - (int) (step / 2);
+				}
 			}
 			
 			int[] balls = new int [BEEN_COUNT];
@@ -147,8 +138,6 @@ public class Exercise22 extends JFrame{
 				balls[position]++;
 			}
 			
-			int ballOvalDiametr = (int) (size * 0.04);
-			g.setColor(Color.BLUE);
 			for (int i = 0; i < BEEN_COUNT; i++) {
 				for (int j = 0; j < balls[i]; j++) {
 					g.fillOval(startX + 10 + (int) (i * step) + (int) (step / 2) - ballOvalDiametr / 2,
