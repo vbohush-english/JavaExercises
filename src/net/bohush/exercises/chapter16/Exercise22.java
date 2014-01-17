@@ -40,9 +40,7 @@ public class Exercise22 extends JFrame{
 			for (int i = 0; i < NUMBER_OF_BALLS; i++) {
 				for (int j = 0; j < BEEN_COUNT - 1; j++) {
 					mashine[i][j] = (int)(Math.random() * 2);
-					System.out.print(mashine[i][j]);
 				}
-				System.out.println();
 			}
 			timer = new Timer(100, new ActionListener() {
 				
