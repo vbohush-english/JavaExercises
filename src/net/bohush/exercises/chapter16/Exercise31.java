@@ -13,10 +13,6 @@ public class Exercise31 extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	public Exercise31() {
-		for (int i = 5; i <= 10; i++) {
-			add(new RegularPolygonPanel(i));	
-		}
-		
 		JPanel panel1 = new JPanel();
 		jbtPlus.addActionListener(new ActionListener() {			
 			@Override
