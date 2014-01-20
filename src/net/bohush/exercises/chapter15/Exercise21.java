@@ -38,7 +38,6 @@ class JuliaSet extends JPanel {
 		for (double x = -2.0; x < 2.0; x += 0.01) {
 			for (double y = -2.0; y < 2.0; y += 0.01) {
 				int c = count(new Complex(x, y));
-				System.out.println(c);
 				if (c == COUNT_LIMIT) {
 					g.setColor(Color.BLACK);
 				} else {
@@ -51,10 +50,10 @@ class JuliaSet extends JPanel {
 
 	/** Return the iteration count */
 	static int count(Complex c) {
-		Complex z = new Complex(0, 0); // z0
+		Complex z = c; // z0
 
 		for (int i = 0; i < COUNT_LIMIT; i++) {
-			z = z.multiply(z).add(c); // Get z1, z2, . . .
+			z = z.multiply(z).add(new Complex(-0.3, 0.6)); // Get z1, z2, . . .
 			if (z.abs() > 2) {
 				return i; // The sequence is unbounded
 			}
@@ -63,3 +62,4 @@ class JuliaSet extends JPanel {
 		return COUNT_LIMIT; // Indicate a bounded sequence
 	}
 }
+

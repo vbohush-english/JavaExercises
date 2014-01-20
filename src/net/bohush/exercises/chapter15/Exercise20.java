@@ -6,14 +6,14 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Exercise20 extends JFrame{
+public class Exercise20 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
 	public Exercise20() {
 		add(new MandelbrotCanvas());
 	}
-	
+
 	public static void main(String[] args) {
 		Exercise20 frame = new Exercise20();
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,11 +49,11 @@ class MandelbrotCanvas extends JPanel {
 	}
 
 	/** Return the iteration count */
-	static int count(Complex c) {
-		Complex z = c; // z0
+	int count(Complex c) {
+		Complex z = new Complex(0, 0); // z0
 
 		for (int i = 0; i < COUNT_LIMIT; i++) {
-			z = z.multiply(z).add(new Complex(-0.3, 0.6)); // Get z1, z2, . . .
+			z = z.multiply(z).add(c); // Get z1, z2, . . .
 			if (z.abs() > 2) {
 				return i; // The sequence is unbounded
 			}
@@ -61,4 +61,5 @@ class MandelbrotCanvas extends JPanel {
 
 		return COUNT_LIMIT; // Indicate a bounded sequence
 	}
+
 }
