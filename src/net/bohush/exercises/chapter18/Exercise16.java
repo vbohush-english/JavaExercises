@@ -37,9 +37,9 @@ public class Exercise16 extends JApplet{
 		private static final long serialVersionUID = 1L;
 		private int startX;
 		private boolean firstRun = true;
-		
+		Timer timer;
 		public StockTicker() {
-			Timer timer = new Timer(10, new ActionListener() {				
+			timer = new Timer(10, new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					startX--;
@@ -50,6 +50,18 @@ public class Exercise16 extends JApplet{
 				}
 			});
 			timer.start();
+			addMouseListener(new MouseAdapter() {				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					timer.start();
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					timer.stop();
+				}
+				
+			});
 		}
 		
 		@Override
