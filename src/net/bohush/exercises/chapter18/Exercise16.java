@@ -23,10 +23,6 @@ public class Exercise16 extends JApplet{
 			data[(i - 1) * 4 + 2] = tmpParams[2];
 			data[(i - 1) * 4 + 3] = tmpParams[3];
 		}
-		for (int i = 0; i < data.length; i++) {
-			System.out.println(data[i]);
-		}
-	
 	}
 	
 	public Exercise16() {
