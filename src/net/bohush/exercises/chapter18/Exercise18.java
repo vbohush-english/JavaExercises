@@ -1,5 +1,7 @@
 package net.bohush.exercises.chapter18;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -11,6 +13,7 @@ public class Exercise18 extends JApplet {
 	private DescriptionPanel descriptionPanel;
 	private int currentFlag = -1;
 	private int numberOfCountries;
+	private AudioClip audioClip;
 	
 	@Override
 	public void init() {
@@ -34,6 +37,11 @@ public class Exercise18 extends JApplet {
 		java.net.URL url = this.getClass().getResource(countries[3 * currentFlag + 2]);
 		ImageIcon imageIcon = new ImageIcon(url);
 		descriptionPanel.setImageIcon(imageIcon);
+		if (audioClip != null) {
+			audioClip.stop();
+		}
+		audioClip = Applet.newAudioClip(this.getClass().getResource("anthem" + currentFlag + ".mid"));
+		audioClip.play();
 	}
 
 	public Exercise18() {
