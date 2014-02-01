@@ -68,16 +68,19 @@ public class Exercise28 extends JApplet{
 	}
 	
 	public void paintCircle() {
-		int x1 = Integer.parseInt(jTextField1.getText());
-		int y1 = Integer.parseInt(jTextField2.getText());
-		int r1 = Integer.parseInt(jTextField3.getText());
-		int x2 = Integer.parseInt(jTextField4.getText());
-		int y2 = Integer.parseInt(jTextField5.getText());
-		int r2 = Integer.parseInt(jTextField6.getText());
-		circle1 = new Circle2D(x1, y1, r1);
-		circle2 = new Circle2D(x2, y2, r2);
-		repaint();
-		jLabel1.setText("Two circles intersect? " + (circle1.overlaps(circle2) ? "Yes" : "No"));
+		try {
+			int x1 = Integer.parseInt(jTextField1.getText());
+			int y1 = Integer.parseInt(jTextField2.getText());
+			int r1 = Integer.parseInt(jTextField3.getText());
+			int x2 = Integer.parseInt(jTextField4.getText());
+			int y2 = Integer.parseInt(jTextField5.getText());
+			int r2 = Integer.parseInt(jTextField6.getText());
+			circle1 = new Circle2D(x1, y1, r1);
+			circle2 = new Circle2D(x2, y2, r2);
+			repaint();
+			jLabel1.setText("Two circles intersect? " + (circle1.overlaps(circle2) ? "Yes" : "No"));
+		} catch (NumberFormatException e) {
+		}
 	}
 	
 	public static void main(String[] args) {

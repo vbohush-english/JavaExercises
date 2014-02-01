@@ -26,11 +26,11 @@ class Triangle2D {
 	}
 	
 	public MyPoint getP2() {
-		return p1;
+		return p2;
 	}
 	
 	public MyPoint getP3() {
-		return p1;
+		return p3;
 	}
 	
 	public void setP1(MyPoint p1) {		
@@ -139,31 +139,38 @@ class Triangle2D {
 	
 	
 	public boolean contains(Triangle2D t) {
-		return contains(t.getP1()) && contains(t.getP2()) && contains(t.getP3());
+		if ((contains(t.getP1()) && contains(t.getP2()) && contains(t.getP3())) ||
+			(t.contains(p1) && t.contains(p2) && t.contains(p3))) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
-	
+
 	public boolean overlaps(Triangle2D t) {
+		if (contains(t)) {
+			return true;
+		}
 		Line2D.Double line1 = new Line2D.Double(p2.getX(), p2.getY(), p3.getX(), p3.getY());
 		Line2D.Double line2 = new Line2D.Double(p1.getX(), p1.getY(), p3.getX(), p3.getY());
 		Line2D.Double line3 = new Line2D.Double(p2.getX(), p2.getY(), p1.getX(), p1.getY());
-		
+
 		Line2D.Double tLine1 = new Line2D.Double(t.getP2().getX(), t.getP2().getY(), t.getP3().getX(), t.getP3().getY());
 		Line2D.Double tLine2 = new Line2D.Double(t.getP1().getX(), t.getP1().getY(), t.getP3().getX(), t.getP3().getY());
 		Line2D.Double tLine3 = new Line2D.Double(t.getP2().getX(), t.getP2().getY(), t.getP1().getX(), t.getP1().getY());
-	
-		if (line1.intersectsLine(tLine1) ||
-			line1.intersectsLine(tLine2) || 
-			line1.intersectsLine(tLine3) ||
-			line2.intersectsLine(tLine1) || 
-			line2.intersectsLine(tLine2) || 
-			line2.intersectsLine(tLine3) ||
-			line3.intersectsLine(tLine1) || 
-			line3.intersectsLine(tLine2) ||
-			line3.intersectsLine(tLine3)) {
-			return false;
-		} else {
+
+		if (line1.intersectsLine(tLine1)
+				|| line1.intersectsLine(tLine2)
+				|| line1.intersectsLine(tLine3)
+				|| line2.intersectsLine(tLine1)
+				|| line2.intersectsLine(tLine2)
+				|| line2.intersectsLine(tLine3)
+				|| line3.intersectsLine(tLine1)
+				|| line3.intersectsLine(tLine2)
+				|| line3.intersectsLine(tLine3)) {
 			return true;
+		} else {
+			return false;
 		}
 	}
 	
