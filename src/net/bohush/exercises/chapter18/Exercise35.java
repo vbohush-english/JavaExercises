@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Exercise34 extends JApplet{
+public class Exercise35 extends JApplet{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel3 = new JPanel(new BorderLayout());
 	
-	public Exercise34() {
+	public Exercise35() {
 		panel3.add(new ConnectFourPanel(), BorderLayout.CENTER);
 		add(panel3, BorderLayout.CENTER);
 		JPanel panel2 = new JPanel();
@@ -30,8 +30,8 @@ public class Exercise34 extends JApplet{
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
-		frame.add(new Exercise34());
-		frame.setTitle("Exercise34");
+		frame.add(new Exercise35());
+		frame.setTitle("Exercise35");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
@@ -75,20 +75,34 @@ public class Exercise34 extends JApplet{
 						(e.getY() < firstY + ROWS * radius)) {
 							int column = (e.getX() - firstX) / radius;
 							if (putDisk(column)) {
-								activePlayer = (activePlayer == 1 ? 2 : 1);
+								activePlayer = 2;
 								repaint();
 								if (isConsecutiveFour(board)) {
 									isFinish = true;
-									if (activePlayer == 2) {
-										flashColor = Color.YELLOW;
-									} else {
-										flashColor = Color.RED;
-									}
+									activePlayer = 1;
+									flashColor = Color.YELLOW;
 									timer.start();
 								} else if (isDraw()) {
 									isFinish = true;								
 								}
 							}							
+							if (activePlayer == 2) {
+								int compColumn;
+								do {
+									compColumn = (int)(Math.random() * COLS);
+								} while(!putDisk(compColumn));
+								if (isConsecutiveFour(board)) {
+									isFinish = true;
+									flashColor = Color.RED;
+									timer.start();
+								} else if (isDraw()) {
+									isFinish = true;								
+								} else {
+									activePlayer = 1;
+								}
+								repaint();
+								
+							}
 					}
 				}
 				
