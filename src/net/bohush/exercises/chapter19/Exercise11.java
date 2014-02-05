@@ -69,6 +69,16 @@ public class Exercise11 extends JFrame{
 				jTextField2.setEnabled(true);
 			}
 		});
+		
+		button1.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					jTextField1.setText(fileChooser.getSelectedFile().getAbsolutePath());
+				}
+			}
+		});
 	}
 	public static void main(String[] args) throws IOException {
 		Exercise11 frame = new Exercise11();
@@ -82,12 +92,12 @@ public class Exercise11 extends JFrame{
 	
 	public void splitFiles(File sourceFile, String sourceFileName, int numberOfPieces) throws IOException {
 		
-		BufferedInputStream input = new BufferedInputStream(new FileInputStream(sourceFile));
+		BufferedInputStream input = new BufferedInputStream(new FileInputStream(sourceFile), 1024 * 1024);
 		
 		int inputFileSize = input.available();
 		int fileSize = inputFileSize / numberOfPieces + 1;
 		int lastFileSize = inputFileSize - (fileSize * (numberOfPieces - 1));
-
+		
 		for (int i = 1; i < numberOfPieces; i++) {
 			BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(sourceFileName + "." + i), 1024 * 1024);
 			for (int j = 0; j < fileSize; j++) {
