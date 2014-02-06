@@ -10,11 +10,13 @@ public class Exercise46 {
 		int integer = input.nextInt();
 		input.close();
 		String binaryInteger = "";
-		for (int i = 0; i < 16; i++) {
-			int tmp = integer >> i;
+		int i = 0;
+		int tmp = integer >> i;
+		while (tmp != 0) {
 			binaryInteger = (tmp & 1) + binaryInteger;
-			System.out.println(tmp);
-		}
+			i++;
+			tmp = integer >> i;
+		} 
 		System.out.println("The bits are " + binaryInteger);
 		
 	}
