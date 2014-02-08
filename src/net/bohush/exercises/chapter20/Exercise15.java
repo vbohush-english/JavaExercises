@@ -2,7 +2,7 @@ package net.bohush.exercises.chapter20;
 
 import java.util.Scanner;
 
-public class Exercise10 {
+public class Exercise15 {
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
@@ -15,19 +15,23 @@ public class Exercise10 {
 	}
 
 	public static int count(String str, char a) {
-		if (str.length() == 1) {
+		return count(str, a, str.length() - 1);
+	}
+	
+	public static int count(String str, char a, int high) {
+		if (high == 0) {
 			if (str.charAt(0) == a) {
 				return 1;
 			} else {
 				return 0;
 			}
 		} else {
-			if (str.charAt(0) == a) {
-				return 1 + count(str.substring(1, str.length()), a);
+			if (str.charAt(high) == a) {
+				return 1 + count(str, a, high - 1);
 			} else {
-				return 0 + count(str.substring(1, str.length()), a);
+				return 0 + count(str, a, high - 1);
 			}
-		}
+		}	
 	}
 
 }
