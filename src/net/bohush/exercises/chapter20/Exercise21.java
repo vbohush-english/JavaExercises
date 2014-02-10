@@ -23,6 +23,6 @@ public class Exercise21 {
 		} else {
 			return "";
 		}
-}
+	}
 
 }
