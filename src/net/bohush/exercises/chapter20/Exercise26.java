@@ -64,13 +64,13 @@ public class Exercise26 extends JApplet{
 		private double stepY;
 		private static final long serialVersionUID = 1L;
 		private int[][] board;
-		private static int errorCount = 0;
+		private boolean[][][] failPath;
 
 		public MazePanel(int size) {
 			this.size = size;
 			board = new int[size][size];
-			addMouseListener(new MouseAdapter() {
-				
+			failPath = new boolean[size][size][4];
+			addMouseListener(new MouseAdapter() {				
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					int x = (int)(e.getX() / stepX);
@@ -84,6 +84,20 @@ public class Exercise26 extends JApplet{
 		}
 		
 		public boolean buildPath() {
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					if (board[i][j] == 2) {
+						board[i][j] = 0;
+					}
+				}				
+			}	
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					for (int k = 0; k < 4; k++) {
+						failPath[i][j][k] = true;
+					}
+				}
+			}
 			if (board[0][0] != 0) {
 				return false;
 			} else {
@@ -99,43 +113,39 @@ public class Exercise26 extends JApplet{
 		}
 		
 		public boolean buildPath(int x, int y, int side) {
-			repaint();
 			
 			if ((x == size - 1) && (y == size - 1)) {
 				return true;
 			}
 			
-			if(errorCount == 4) {
-				return false;
-			}
-			
-			if (side > 4) {
-				side = side - 4;
-			}
-			
-			int nextX = x;
-			int nextY = y;
-			
-			switch (side) {
-			case 1: nextY--; break;
-			case 2: nextX++; break;
-			case 3: nextY++; break;
-			case 4: nextX--; break;
-			}
-			
-			if ((nextX == size) || (nextY == size) || (nextY == -1) || (nextX == -1) || (board[nextX][nextY] != 0)) {
-				errorCount++;
-				boolean result = buildPath(x, y, side + 1);
-				System.out.println(1 + " x:" + x + " y:" + y + " side:" + side + " r:" + result);
-				return result;
+			for (int newSide = side, sideCount = 0; sideCount < 4; newSide++, sideCount++) {
+				if (newSide > 4) {
+					newSide = newSide - 4;
+				}
 				
-			} else {
-				errorCount = 0;
-				board[nextX][nextY] = 2;
-				boolean result = buildPath(nextX, nextY, side);
-				System.out.println(2 + " nextX:" + nextX + " nextY:" + nextY + " side:" + side + " r:" + result);
-				return result;
+				int nextX = x;
+				int nextY = y;		
+				
+				switch (newSide) {
+				case 1: nextY--; break;
+				case 2: nextX++; break;
+				case 3: nextY++; break;
+				case 4: nextX--; break;
+				}
+				
+				if (!((nextX == size) || (nextY == size) || (nextY == -1) || (nextX == -1) || (board[nextX][nextY] != 0))) {
+					if (failPath[nextX][nextY][newSide - 1]) { 
+						board[nextX][nextY] = 2;
+						if (buildPath(nextX, nextY, newSide)) {
+							return true;
+						}
+					}
+				}	
 			}
+			board[x][y] = 0;
+			failPath[x][y][side - 1] = false;
+			return false;
+			
 		}
 		
 		public void clearPath() {
@@ -144,7 +154,6 @@ public class Exercise26 extends JApplet{
 					board[i][j] = 0;
 				}				
 			}	
-			errorCount = 0;
 			repaint();
 		}
 		
