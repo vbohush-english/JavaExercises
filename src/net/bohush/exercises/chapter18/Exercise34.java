@@ -97,7 +97,7 @@ public class Exercise34 extends JApplet{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (flashColor == Color.WHITE) {
-						if (activePlayer == 1) {
+						if (activePlayer == 2) {
 							flashColor = Color.YELLOW;
 						} else {
 							flashColor = Color.RED;
