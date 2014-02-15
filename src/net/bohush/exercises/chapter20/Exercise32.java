@@ -72,6 +72,7 @@ public class Exercise32 extends JApplet{
 				board[x][y] = 1;
 				buildPath(x, y);
 			} catch (NumberFormatException e) {
+			} catch (ArrayIndexOutOfBoundsException e) {
 			}
 			repaint();
 		
@@ -238,7 +239,7 @@ public class Exercise32 extends JApplet{
 		
 		@Override
 		public Dimension getPreferredSize() {
-			return new Dimension(400, 400);
+			return new Dimension(size * 50, size * 50);
 		}
 
 	}	
