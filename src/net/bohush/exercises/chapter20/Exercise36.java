@@ -56,9 +56,9 @@ public class Exercise36 extends JApplet {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-
+			g.setColor(Color.BLACK);
 			Point p = new Point(getWidth() / 2, getHeight() / 2);
-			int size = Math.min(getWidth(), getHeight()) / 4;
+			int size = 128;
 			
 			Point p1 = new Point(p.x - size, p.y - size);
 			Point p2 = new Point(p.x - size, p.y + size);
@@ -125,7 +125,7 @@ public class Exercise36 extends JApplet {
 		Exercise36 applet = new Exercise36();
 		frame.add(applet);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 400);
+		frame.setSize(600, 600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 	}
