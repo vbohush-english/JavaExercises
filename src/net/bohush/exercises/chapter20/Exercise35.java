@@ -63,7 +63,7 @@ public class Exercise35 extends JApplet {
 		}
 
 		private static void displayTree(Graphics g, int order, Point p, int size) {
-			g.setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+			g.setColor(Color.BLACK);
 			Point p1 = new Point(p.x - size, p.y - size);
 			Point p2 = new Point(p.x - size, p.y + size);
 			Point p3 = new Point(p.x + size, p.y - size);
