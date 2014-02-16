@@ -8,7 +8,7 @@ import java.awt.event.*;
 public class Exercise35 extends JApplet {
 
 	private static final long serialVersionUID = 1L;
-	private SierpinskiTrianglePanel trianglePanel = new SierpinskiTrianglePanel();
+	private HTreePanel hTreePanel = new HTreePanel();
 
 	public Exercise35() {
 		JButton jButton1 = new JButton("-");
@@ -17,33 +17,27 @@ public class Exercise35 extends JApplet {
 		panel.add(jButton1);
 		panel.add(jButton2);
 
-		add(trianglePanel);
+		add(hTreePanel);
 		add(panel, BorderLayout.SOUTH);
 
 
 		jButton1.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				trianglePanel.downOrder();
+				hTreePanel.downOrder();
 			}
 		});
 		jButton2.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				trianglePanel.upOrder();
+				hTreePanel.upOrder();
 			}
 		});
 	}
 
-	static class SierpinskiTrianglePanel extends JPanel {
+	static class HTreePanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 		private int order = 0;
-
-		/** Set a new order */
-		public void setOrder(int order) {
-			this.order = order;
-			repaint();
-		}
 		
 		public void upOrder() {
 			order++;
@@ -61,37 +55,30 @@ public class Exercise35 extends JApplet {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-
-			// Select three points in proportion to the panel size
-			Point p1 = new Point(getWidth() / 2, 10);
-			Point p2 = new Point(10, getHeight() - 10);
-			Point p3 = new Point(getWidth() - 10, getHeight() - 10);
-
-			displayTriangles(g, order, p1, p2, p3);
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			Point p = new Point(getWidth() / 2, getHeight() / 2);
+			int size = Math.min(getWidth(), getHeight()) / 4;
+			displayTree(g, order, p, size);
 		}
 
-		private static void displayTriangles(Graphics g, int order, Point p1,
-				Point p2, Point p3) {
-			if (order == 0) {
-				// Draw a triangle to connect three points
-				g.drawLine(p1.x, p1.y, p2.x, p2.y);
-				g.drawLine(p1.x, p1.y, p3.x, p3.y);
-				g.drawLine(p2.x, p2.y, p3.x, p3.y);
-			} else {
-				// Get the midpoint on each edge in the triangle
-				Point p12 = midpoint(p1, p2);
-				Point p23 = midpoint(p2, p3);
-				Point p31 = midpoint(p3, p1);
-
-				// Recursively display three triangles
-				displayTriangles(g, order - 1, p1, p12, p31);
-				displayTriangles(g, order - 1, p12, p2, p23);
-				displayTriangles(g, order - 1, p31, p23, p3);
+		private static void displayTree(Graphics g, int order, Point p, int size) {
+			g.setColor(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+			Point p1 = new Point(p.x - size, p.y - size);
+			Point p2 = new Point(p.x - size, p.y + size);
+			Point p3 = new Point(p.x + size, p.y - size);
+			Point p4 = new Point(p.x + size, p.y + size);
+			g.drawLine(p1.x, p1.y, p2.x, p2.y);
+			g.drawLine(p3.x, p3.y, p4.x, p4.y);
+			Point p5 = new Point(p.x - size, p.y);
+			Point p6 = new Point(p.x + size, p.y);
+			g.drawLine(p5.x, p5.y, p6.x, p6.y);
+			if (order != 0) {
+				displayTree(g, order - 1, p1, size / 2);
+				displayTree(g, order - 1, p2, size / 2);
+				displayTree(g, order - 1, p3, size / 2);
+				displayTree(g, order - 1, p4, size / 2);
 			}
-		}
-
-		private static Point midpoint(Point p1, Point p2) {
-			return new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
 		}
 	}
 
