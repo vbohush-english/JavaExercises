@@ -2,107 +2,60 @@ package net.bohush.exercises.chapter22;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Stack;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Exercise15 extends JFrame {
-	private JLabel[] jlblCards = new JLabel[4];
-	private int[] deck = new int[52];
-	private ArrayList<Integer> numbers = new ArrayList<>();
+public class Exercise17 extends JFrame {
+	private JTextField[] jTextFields = new JTextField[4];
 	private JTextField jTextField = new JTextField("", 10);
-	private JTextField jTextField2 = new JTextField("", 10);
 	private static final long serialVersionUID = 1L;
 
-	public Exercise15() {		
-		changeCards();
+	public Exercise17() {		
 		setLayout(new BorderLayout(5, 5));
 		
 		JPanel cardPanel = new JPanel(new GridLayout(1, 4, 5, 5));
 		for (int i = 0; i < 4; i++) {
-			jlblCards[i] = new JLabel(new ImageIcon("image/Cards/" + deck[i] + ".png"));
-			cardPanel.add(jlblCards[i]);
-			if(deck[i] % 13 == 0) {
-				numbers.add(13);
-			} else {
-				numbers.add(deck[i] % 13);
-			}
+			jTextFields[i] = new JTextField();
+			jTextFields[i].setHorizontalAlignment(JTextField.CENTER);
+			jTextFields[i].setFont(new Font("SansSerif", Font.BOLD, 30));
+			jTextFields[i].setText("" + (int)(1 + Math.random() * 13));
+			cardPanel.add(jTextFields[i]);
+
 		}
 		add(cardPanel, BorderLayout.CENTER);
 		
 
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+		jTextField.setEditable(false);
+		buttonPanel.add(jTextField);
 		JButton jbtFind = new JButton("Find a Solution");
 		buttonPanel.add(jbtFind);
-		buttonPanel.add(jTextField2);
-		JButton jbtRefresh = new JButton("Refresh");
-		buttonPanel.add(jbtRefresh);
 		add(buttonPanel, BorderLayout.NORTH);
-		
-		
-		JPanel panel = new JPanel(new GridLayout(1, 3, 5, 5));
-		panel.add(new JLabel("Ennter an expression: "));
-		panel.add(jTextField);
-		JButton jbtVerify= new JButton("Verify");
-		panel.add(jbtVerify);
-		add(panel, BorderLayout.SOUTH);
-		
-		jbtRefresh.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				changeCards();
-				numbers.clear();
-				for (int i = 0; i < 4; i++) {
-					jlblCards[i].setIcon(new ImageIcon("image/Cards/" + deck[i] + ".png"));
-					if(deck[i] % 13 == 0) {
-						numbers.add(13);
-					} else {
-						numbers.add(deck[i] % 13);
-					}
-				}				
-			}
-		});
-		
-		jbtVerify.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<Integer> verifyNumbers = new ArrayList<>();
-				int result = (int)(evaluateExpression(jTextField.getText(), verifyNumbers));
-				Collections.sort(numbers);
-				Collections.sort(verifyNumbers);
-				
-				if ((numbers.equals(verifyNumbers))&&(result == 24)) {
-					JOptionPane.showMessageDialog(null, "Correct");	
-				} else {
-					JOptionPane.showMessageDialog(null, "Incorrect result");	
-				}
-			}
-		});
 		
 		jbtFind.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Collections.sort(numbers);
-				String NumbersAsString = "";
-				for (int i = 0; i < numbers.size(); i++) {
-					NumbersAsString += (char)(int)(numbers.get(i));
-				}
-				String result = displayPermutation(NumbersAsString);
-				if(result == null) {
-					jTextField2.setText("No solution");
-				} else {
-					jTextField2.setText(result);
+				try {
+					String NumbersAsString = "";
+					for (int i = 0; i <jTextFields.length; i++) {
+						NumbersAsString += (char)(int)(Integer.parseInt(jTextFields[i].getText()));
+					}
+					String result = displayPermutation(NumbersAsString);
+					if(result == null) {
+						jTextField.setText("No solution");
+					} else {
+						jTextField.setText(result);
+					}
+				} catch (NumberFormatException e2) {
 				}
 			}
 		});
@@ -207,26 +160,13 @@ public class Exercise15 extends JFrame {
 		}
 	}
 
-	private void changeCards() {
-		for (int i = 0; i < deck.length; i++) {
-			deck[i] = i + 1;
-		}
-
-		for (int i = 0; i < deck.length; i++) {
-			int index = (int) (Math.random() * deck.length);
-			int temp = deck[i];
-			deck[i] = deck[index];
-			deck[index] = temp;
-		}
-	}
-
 	public static void main(String[] args) {
-		Exercise15 frame = new Exercise15();
+		Exercise17 frame = new Exercise17();
 		frame.pack();
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setTitle("Exercise15");
+		frame.setTitle("Exercise17");
 		frame.setVisible(true);
 	}
 	
