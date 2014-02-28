@@ -10,11 +10,8 @@ public class Exercise22 {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter number of disks: ");
 		int n = input.nextInt();
-
 		System.out.println("The moves are:");
-		int numberOfMoves = moveDisks(n, 'A', 'B', 'C');
-
-		System.out.println("Number of moves: " + numberOfMoves);
+		System.out.println("Number of moves: " + moveDisks(n, 'A', 'B', 'C'));
 	}
 	
 	public static int moveDisks(int n, char fromTower, char toTower, char auxTower) {
