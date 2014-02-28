@@ -18,8 +18,34 @@ public class Exercise03 {
 		}
 	}
 
+	public static void replaceInString(StringBuilder allFile, String beginStr, String endStr) {		
+		int lastPos = 0;
+		while (true) {
+			int begin = allFile.indexOf(beginStr, lastPos);
+			int end = allFile.indexOf(endStr, begin + beginStr.length());
+			if((begin == -1) || (end == -1)) {
+				break;
+			}
+			allFile.replace(begin, end + endStr.length(), "");
+			lastPos = begin;
+		}
+	}
+	
 	public static int countKeywords(File file) throws Exception {
-		// Array of all Java keywords + true, false and null
+
+		DataInputStream input = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
+		int size = input.available();
+		byte[] b = new byte[size];
+		input.read(b);
+		input.close();
+
+		StringBuilder allFile = new StringBuilder(new String(b));
+
+		replaceInString(allFile, "\\\"", "");
+		replaceInString(allFile, "\"", "\"");
+		replaceInString(allFile, "/*", "*/");
+		replaceInString(allFile, "//", "\n");
+		
 		String[] keywordString = { "abstract", "assert", "boolean", "break",
 				"byte", "case", "catch", "char", "class", "const", "continue",
 				"default", "do", "double", "else", "enum", "extends", "for",
@@ -32,12 +58,12 @@ public class Exercise03 {
 
 		Set<String> keywordSet = new HashSet<String>(Arrays.asList(keywordString));
 		int count = 0;
-		
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(file);
 
-		while (input.hasNext()) {
-			String word = input.next();
+		@SuppressWarnings("resource")
+		Scanner input2 = new Scanner(allFile.toString());
+
+		while (input2.hasNext()) {
+			String word = input2.next();
 			if (keywordSet.contains(word))
 				count++;
 		}
