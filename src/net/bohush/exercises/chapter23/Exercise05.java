@@ -117,7 +117,7 @@ public class Exercise05 {
 					work = 0;
 				}
 			} else if (work == 3) {
-				if(!Character.isDigit(ch)) {
+				if((!Character.isDigit(ch))&&(ch != '.')) {
 					String tmp = "</span>";
 					javaFile.insert(pos, tmp);
 					pos += tmp.length(); 
