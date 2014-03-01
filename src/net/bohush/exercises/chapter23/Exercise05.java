@@ -5,7 +5,7 @@ import java.io.*;
 public class Exercise05 {
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {
-			System.out.println("Usage: java Exercise23 file.java file.html");
+			System.out.println("Usage: java Exercise05 file.java file.html");
 			System.exit(0);
 		}
 		File inputFile = new File(args[0]);
