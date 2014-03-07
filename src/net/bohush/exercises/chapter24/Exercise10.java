@@ -16,6 +16,7 @@ public class Exercise10 {
 				result++;
 			} catch (EOFException e) {
 				System.out.println(number + " - " + result);
+				break;
 			}
 
 		}
