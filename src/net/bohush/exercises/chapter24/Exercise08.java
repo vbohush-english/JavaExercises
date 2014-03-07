@@ -17,42 +17,42 @@ public class Exercise08 {
 		int squareRoot = 1; // Check whether number <= squareRoot
 
 		if(input.length() > 0) {
+			input.seek(input.length() - 8);
+			number = input.readLong() + 1;
 			input.seek(0);
 			try {
 				for (int i = 0; i < 10000; i++) {
 					list.add(input.readLong());
 				}			
 			} catch (EOFException e) {
-			}
-			input.seek(input.length() - 8);
-			number = input.readLong() + 1;
-			
+			}	
 			
 			squareRoot = (int)(Math.sqrt(number)) + 1;
 			count = input.length() / 8;
 		}
 		
 
-		
-		// Repeatedly find prime numbers
 		while (number <= n) {
-			// Assume the number is prime
-			boolean isPrime = true; // Is the current number prime?
-
+			boolean isPrime = true;
 			if (squareRoot * squareRoot < number)
 				squareRoot++;
 
 			 while(true) {
-				// ClosestPair if number is prime
-				for (int k = 0; k < list.size() && list.get(k) <= squareRoot; k++) {
-					if (number % list.get(k) == 0) { // If true, not prime
-						isPrime = false; // Set isPrime to false
-						break; // Exit the for loop
+				isPrime = true;
+				int k;
+				for (k = 0; k < list.size() && list.get(k) <= squareRoot; k++) {
+					if (number % list.get(k) == 0) {
+						isPrime = false;
+						break;
 					}
 				}
-				if ((isPrime)&&(input.length() < count)) {
-					System.out.println("list.size() " + list.size());
-					input.seek(list.size() * 8);
+				if (input.getFilePointer() == input.length()) {
+					break;
+				}
+				
+				if (!isPrime) {
+					break;
+				} else  {
 					list.clear();
 					try {
 						for (int i = 0; i < 10000; i++) {
@@ -60,19 +60,23 @@ public class Exercise08 {
 						}			
 					} catch (EOFException e) {
 					}
-					input.seek(input.length() - 8);			
-				} else {
-					break;
 				}
 			}
 			
 			if (isPrime) {
-				count++; // Increase the count
-				list.add(number);
+				count++;
+				System.out.println(count + "\t" + number + "\t" + list.size());
 				input.writeLong(number);
+				list.clear();
+				input.seek(0);
+				try {
+					for (int i = 0; i < 10000; i++) {
+						list.add(input.readLong());
+					}			
+				} catch (EOFException e) {
+				}	
 			}
 
-			// Check if the next number is prime
 			number++;
 		}
 

@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class Exercise09 {
 
 	public static void main(String[] args) {
-		double[][] points = new double[100][2];
+		double[][] points = new double[6][2];
 		for (int i = 0; i < points.length; i++) {
 			points[i][0] = (int)(Math.random() * 100);
 			points[i][1] = (int)(Math.random() * 100);
 		}
+		
 		
 		/*
 		points[0][0] = 1;
@@ -25,6 +26,7 @@ public class Exercise09 {
 		points[5][0] = 5.5;
 		points[5][1] = 9;
 		*/
+		
 		           
 		ArrayList<MyPoint> hull = getConvexHull(points);
 		System.out.println("There are " + points.length + " points:");
@@ -59,11 +61,17 @@ public class Exercise09 {
 		points.add(h0);
 		
 		//second point
-		MyPoint virtualPoint = new MyPoint(h0.x, h0.y + 1);
+		MyPoint virtualPoint = new MyPoint(h0.x + 1, h0.y);
 		MyPoint h1 = oldPoints.get(0);
 		double tmpAngle = getAngle(h0, virtualPoint, h1);
+		if(Double.isNaN(tmpAngle)) {
+			tmpAngle = Double.MAX_VALUE;
+		}
 		for (int j = 1; j < oldPoints.size(); j++) {
 			double newAngle = getAngle(h0, virtualPoint, oldPoints.get(j));
+			if(Double.isNaN(newAngle)) {
+				newAngle = Double.MAX_VALUE;
+			}
 			if(newAngle < tmpAngle) {
 				tmpAngle = newAngle;
 				h1 = oldPoints.get(j);
@@ -80,16 +88,24 @@ public class Exercise09 {
 			}
 			for (int j = 1; j < oldPoints.size(); j++) {
 				double newAngle = getAngle(h1, oldPoints.get(j), h0);
-				if((!Double.isNaN(newAngle))&&(newAngle > tmpAngle2)) {
+				if(Double.isNaN(newAngle)) {
+					continue;
+				}
+				if(newAngle > tmpAngle2) {
 					tmpAngle2 = newAngle;
 					tmpPoint = oldPoints.get(j);
+				} else if(newAngle == tmpAngle2) {
+					if(getSide(h1, oldPoints.get(j)) > getSide(h1, tmpPoint)) {
+						tmpAngle2 = newAngle;
+						tmpPoint = oldPoints.get(j);
+					}
 				}
 			}
 			if(tmpPoint != points.get(0)) {
 				points.add(tmpPoint);
 			}
 			h0 = h1;
-			h1 = tmpPoint;			
+			h1 = tmpPoint;
 		}
 		return points;
 	}
