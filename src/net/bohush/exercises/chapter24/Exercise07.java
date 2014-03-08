@@ -49,7 +49,7 @@ class Pair {
 	}
 	
 	public static Pair distance(Point[] pointsOrderedOnX, int low, int high, Point[] pointsOrderedOnY) {
-		if(low == high) {
+		if(low >= high) {
 			return null;
 		} else if (low + 1 == high) {
 			return new Pair(pointsOrderedOnX[low], pointsOrderedOnX[high]);
@@ -72,13 +72,14 @@ class Pair {
 			p = p1;
 		} else {
 			distance = Math.min(p1.getDistance(), p2.getDistance());
-			p = ((p1.getDistance() < p2.getDistance())? p1 : p2);
+			p = ((p1.getDistance() <= p2.getDistance())? p1 : p2);
 		}
 
 		ArrayList<Point> stripL = new ArrayList<Point>();
 		ArrayList<Point> stripR = new ArrayList<Point>();
 		for (int i = 0; i < pointsOrderedOnY.length; i++) {
-			if ((pointsOrderedOnY[i].getX() < pointsOrderedOnX[halfSize].getX())&&(pointsOrderedOnY[i].getX() > pointsOrderedOnX[halfSize].getX() - distance)) {
+			if ((pointsOrderedOnY[i].getX() <= pointsOrderedOnX[halfSize].getX())&&
+					(pointsOrderedOnY[i].getX() >= pointsOrderedOnX[halfSize].getX() - distance)) {
 				stripL.add(pointsOrderedOnY[i]);
 			} else {
 				stripR.add(pointsOrderedOnY[i]);
