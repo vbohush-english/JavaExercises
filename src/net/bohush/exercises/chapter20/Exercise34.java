@@ -38,7 +38,6 @@ public class Exercise34 extends JApplet{
 		public QueensPanel(int size) {
 			this.size = size;
 			getBoard(size);
-			System.out.println(queensList.size());
 			addMouseListener(new MouseAdapter() {
 				
 				@Override
