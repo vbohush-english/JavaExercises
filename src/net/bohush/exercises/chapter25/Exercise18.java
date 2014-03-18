@@ -11,12 +11,12 @@ import java.util.Collections;
 public class Exercise18 extends JApplet {
 
 	private static final long serialVersionUID = 1L;
-	private SelectionSortPanel SelectionSortPanel = new SelectionSortPanel();
+	private MergePanel mergePanel = new MergePanel();
 	private JButton jButton1 = new JButton("Step");
 	
 	public Exercise18() {
 		setLayout(new BorderLayout());
-		add(SelectionSortPanel, BorderLayout.CENTER);
+		add(mergePanel, BorderLayout.CENTER);
 		
 		JPanel panel1 = new JPanel();		
 		panel1.add(jButton1);
@@ -27,20 +27,20 @@ public class Exercise18 extends JApplet {
 		jButton1.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SelectionSortPanel.nextStep();
+				mergePanel.nextStep();
 			}
 		});
 		
 		jButton2.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SelectionSortPanel.reset();
+				mergePanel.reset();
 				jButton1.setEnabled(true);
 			}
 		});
 	}
 	
-	class SelectionSortPanel extends JPanel {
+	class MergePanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 		private int searchSize = 10;
 		private ArrayList<Integer> list1 = new ArrayList<>();
@@ -49,7 +49,7 @@ public class Exercise18 extends JApplet {
 		private int current1 = 0;
 		private int current2 = 0;
 		
-		public SelectionSortPanel() {
+		public MergePanel() {
 			reset();
 		}
 		

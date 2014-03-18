@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class Exercise19 extends JApplet {
 
 	private static final long serialVersionUID = 1L;
-	private SelectionSortPanel SelectionSortPanel = new SelectionSortPanel();
+	private PartitionPanel partitionPanel = new PartitionPanel();
 	private JButton jButton1 = new JButton("Step");
 	
 	public Exercise19() {
 		setLayout(new BorderLayout());
-		add(SelectionSortPanel, BorderLayout.CENTER);
+		add(partitionPanel, BorderLayout.CENTER);
 		
 		JPanel panel1 = new JPanel();		
 		panel1.add(jButton1);
@@ -26,20 +26,20 @@ public class Exercise19 extends JApplet {
 		jButton1.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SelectionSortPanel.nextStep();
+				partitionPanel.nextStep();
 			}
 		});
 		
 		jButton2.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SelectionSortPanel.reset();
+				partitionPanel.reset();
 				jButton1.setEnabled(true);
 			}
 		});
 	}
 	
-	class SelectionSortPanel extends JPanel {
+	class PartitionPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 		private int searchSize = 30;
 		private ArrayList<Integer> list = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Exercise19 extends JApplet {
 		private int low = -1;
 		private int high = -1;
 		
-		public SelectionSortPanel() {
+		public PartitionPanel() {
 			reset();
 		}
 		

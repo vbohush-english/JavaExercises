@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class Exercise17 extends JApplet {
 
 	private static final long serialVersionUID = 1L;
-	private SelectionSortPanel SelectionSortPanel = new SelectionSortPanel();
+	private RadixSortPanel radixSortPanel = new RadixSortPanel();
 	private JButton jButton1 = new JButton("Step");
 	
 	public Exercise17() {
 		setLayout(new BorderLayout());
-		add(SelectionSortPanel, BorderLayout.CENTER);
+		add(radixSortPanel, BorderLayout.CENTER);
 		
 		JPanel panel1 = new JPanel();		
 		panel1.add(jButton1);
@@ -26,43 +26,21 @@ public class Exercise17 extends JApplet {
 		jButton1.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SelectionSortPanel.nextStep();
+				radixSortPanel.nextStep();
 			}
 		});
 		
 		jButton2.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SelectionSortPanel.reset();
+				radixSortPanel.reset();
 				jButton1.setEnabled(true);
 			}
 		});
 	}
 	
-	static void radixSort(int[] list, int maxOrder) {
-		for (int order = 1; order < maxOrder; order *= 10) {
-			@SuppressWarnings("unchecked")
-			ArrayList<Integer>[] bucket = new ArrayList[10];
-			
-			for (int i = 0; i < bucket.length; i++) {
-				bucket[i] = new java.util.ArrayList<>();
-			}
-			
-			for (int i = 0; i < list.length; i++) {
-				bucket[(list[i] / order) % 10].add(list[i]);
-			}
-			
-			int k = 0;
-			for (int i = 0; i < bucket.length; i++) {
-				if (bucket[i] != null) {
-					for (int j = 0; j < bucket[i].size(); j++)
-						list[k++] = bucket[i].get(j);
-				}
-			}
-		}
-	}
 
-	class SelectionSortPanel extends JPanel {
+	class RadixSortPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 		private int searchSize = 30;
 		private int maxOrder = 1000;
@@ -73,7 +51,7 @@ public class Exercise17 extends JApplet {
 		int lastNumberCol = 0;
 		ArrayList<Integer> numbers = new ArrayList<>();
 		
-		public SelectionSortPanel() {
+		public RadixSortPanel() {
 			reset();
 		}
 		
