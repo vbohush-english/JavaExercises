@@ -67,7 +67,11 @@ public class Exercise09 {
 			if((node1 == null) && (node2 == null)) {
 				return true;
 			} else if((node1 != null) && (node2 != null)) {
-				return isEqual(node1.left, node2.left) && isEqual(node1.right, node2.right);
+				if(!node1.element.equals(node2.element)) {
+					return false;
+				} else {
+					return isEqual(node1.left, node2.left) && isEqual(node1.right, node2.right);
+				}
 			} else {
 				return false;
 			}
