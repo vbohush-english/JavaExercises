@@ -7,22 +7,25 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Exercise12 extends JPanel {
+public class Exercise16 extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private BST<Integer> tree; // A binary tree to be displayed
 	private JTextField jtfKey = new JTextField(5);
 	private TreeView view = new TreeView();
 	private JButton jbtInsert = new JButton("Insert");
 	private JButton jbtDelete = new JButton("Delete");
+	private JButton jbtSearch = new JButton("Search");
 	private ArrayList<Integer> searchPath = new ArrayList<>();
 	private int showSearchLenght = -1;
-	private Timer timer1;
+	private Timer insertTimer;
+	private Timer searchTimer;
+	private Timer deleteTimer;
 	
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Exercise12");
+		JFrame frame = new JFrame("Exercise16");
 		JApplet applet = new DisplayBST();
 		frame.add(applet);
-		frame.setSize(500, 300);
+		frame.setSize(600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -31,12 +34,12 @@ public class Exercise12 extends JPanel {
 	static class DisplayBST extends JApplet {
 		private static final long serialVersionUID = 1L;
 		public DisplayBST() {
-			add(new Exercise12(new BST<Integer>(new Integer[] {60, 55, 100, 45, 57, 67, 107, 101, 59})));
+			add(new Exercise16(new BST<Integer>(new Integer[] {60, 55, 100, 45, 57, 67, 107, 101, 59})));
 		}
 	}
 
 	/** Construct a view for a binary tree */
-	public Exercise12(BST<Integer> tree) {
+	public Exercise16(BST<Integer> tree) {
 		this.tree = tree; // Set a binary tree to be displayed
 		setUI();
 	}
@@ -50,24 +53,10 @@ public class Exercise12 extends JPanel {
 		panel.add(jtfKey);
 		panel.add(jbtInsert);
 		panel.add(jbtDelete);
+		panel.add(jbtSearch);
 		add(panel, BorderLayout.SOUTH);
 
-		jbtDelete.addActionListener(new ActionListener() {
-			@Override
-			// Process the Delete button event
-			public void actionPerformed(ActionEvent e) {
-				searchPath = null;
-				showSearchLenght = -1;
-				int key = Integer.parseInt(jtfKey.getText());
-				if (!tree.search(key)) { // key is not in the tree
-					JOptionPane.showMessageDialog(null, key	+ " is not in the tree");
-				} else {
-					tree.delete(key); // Delete a key					
-				}
-				view.repaint();
-			}
-		});
-		
+
 		jbtInsert.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,18 +66,20 @@ public class Exercise12 extends JPanel {
 				jtfKey.setEditable(false);
 				jbtInsert.setEnabled(false);
 				jbtDelete.setEnabled(false);
-				timer1.start();
+				jbtSearch.setEnabled(false);
+				insertTimer.start();
 			}
 		});
 		
-		timer1 = new Timer(500, new ActionListener() {			
+		insertTimer = new Timer(500, new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(showSearchLenght >= searchPath.size()) {
-					timer1.stop();
+					insertTimer.stop();
 					jtfKey.setEditable(true);
 					jbtInsert.setEnabled(true);
 					jbtDelete.setEnabled(true);
+					jbtSearch.setEnabled(true);
 					tree.insert(Integer.parseInt(jtfKey.getText()));
 					showSearchLenght = -1;	
 					view.repaint();
@@ -96,14 +87,97 @@ public class Exercise12 extends JPanel {
 					showSearchLenght++;
 					view.repaint();
 					if(Integer.parseInt(jtfKey.getText()) == searchPath.get(showSearchLenght - 1)) {
-						timer1.stop();
+						insertTimer.stop();
 						jtfKey.setEditable(true);
 						jbtInsert.setEnabled(true);
-						jbtDelete.setEnabled(true);						
+						jbtDelete.setEnabled(true);		
+						jbtSearch.setEnabled(true);
 						JOptionPane.showMessageDialog(null, jtfKey.getText()	+ " is already in the tree");
 						showSearchLenght = -1;	
 						view.repaint();
 					}
+				}
+			}
+		});
+		
+		jbtSearch.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int key = Integer.parseInt(jtfKey.getText());
+				searchPath = tree.searchPath(key);
+				showSearchLenght = 0;
+				jtfKey.setEditable(false);
+				jbtInsert.setEnabled(false);
+				jbtDelete.setEnabled(false);
+				jbtSearch.setEnabled(false);
+				searchTimer.start();
+			}
+		});
+		
+		searchTimer = new Timer(500, new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(showSearchLenght >= searchPath.size()) {
+					searchTimer.stop();
+					jtfKey.setEditable(true);
+					jbtInsert.setEnabled(true);
+					jbtDelete.setEnabled(true);
+					jbtSearch.setEnabled(true);
+					JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree");
+					showSearchLenght = -1;	
+					view.repaint();
+				} else {
+					showSearchLenght++;
+					view.repaint();
+					if(Integer.parseInt(jtfKey.getText()) == searchPath.get(showSearchLenght - 1)) {
+						searchTimer.stop();
+						jtfKey.setEditable(true);
+						jbtInsert.setEnabled(true);
+						jbtDelete.setEnabled(true);
+						jbtSearch.setEnabled(true);
+					}
+				}
+			}
+		});
+		
+		jbtDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int key = Integer.parseInt(jtfKey.getText());
+				searchPath = tree.searchPath(key);
+				showSearchLenght = 0;
+				jtfKey.setEditable(false);
+				jbtInsert.setEnabled(false);
+				jbtDelete.setEnabled(false);
+				jbtSearch.setEnabled(false);
+				deleteTimer.start();
+			}
+		});
+		
+		deleteTimer = new Timer(500, new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(showSearchLenght >= searchPath.size()) {
+					deleteTimer.stop();
+					jtfKey.setEditable(true);
+					jbtInsert.setEnabled(true);
+					jbtDelete.setEnabled(true);
+					jbtSearch.setEnabled(true);
+					JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree");
+					showSearchLenght = -1;	
+					view.repaint();
+				} else {
+					showSearchLenght++;
+					if(Integer.parseInt(jtfKey.getText()) == searchPath.get(showSearchLenght - 1)) {
+						deleteTimer.stop();
+						tree.delete(Integer.parseInt(jtfKey.getText()));
+						showSearchLenght = -1;	
+						jtfKey.setEditable(true);
+						jbtInsert.setEnabled(true);
+						jbtDelete.setEnabled(true);
+						jbtSearch.setEnabled(true);
+					}
+					view.repaint();
 				}
 			}
 		});
