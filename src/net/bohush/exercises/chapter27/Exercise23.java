@@ -1,9 +1,10 @@
 package net.bohush.exercises.chapter27;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
-public class Exercise22 {
+public class Exercise23 {
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
@@ -22,14 +23,15 @@ public class Exercise22 {
 	}
 	
 	static String getConteiner(ArrayList<Integer> objects, int max) {
+		if(objects.isEmpty()) {
+			return "";
+		}
 		String result = "";
-		for (int i = 0; i < objects.size(); i++) {
-			if(objects.get(i) <= max) {
-				int tmp = objects.get(i);
-				result += tmp + " ";
-				objects.remove(i);
-				return result + getConteiner(objects, max - tmp);
-			}
+		int min = Collections.min(objects);
+		if(min <= max) {
+			result += min + " ";
+			objects.remove(new Integer(min));
+			return result + getConteiner(objects, max - min);
 		}
 		return result;
 	}
