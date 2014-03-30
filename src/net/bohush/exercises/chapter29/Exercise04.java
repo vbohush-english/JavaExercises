@@ -1,261 +1,17 @@
 package net.bohush.exercises.chapter29;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.LinkedList;
 import java.util.ArrayList;
 
-import javax.swing.*;
+public class Exercise04 {
 
-
-public class Exercise03 extends JPanel {
-	private static final long serialVersionUID = 1L;
-	private AVLTree<Integer> tree;
-	private JTextField jtfKey = new JTextField(5);
-	private TreeView view = new TreeView();
-	private JButton jbtInsert = new JButton("Insert");
-	private JButton jbtDelete = new JButton("Delete");
-	private JButton jbtSearch = new JButton("Search");
-	private ArrayList<Integer> searchPath = new ArrayList<>();
-	private int showSearchLenght = -1;
-	private Timer insertTimer;
-	private Timer searchTimer;
-	private Timer deleteTimer;
-	
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Exercise03");
-		JApplet applet = new DisplayBST();
-		frame.add(applet);
-		frame.setSize(600, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		AVLTree<Integer> tree = new AVLTree<Integer>();
+		for (int i = 1; i <= 100; i++) {
+			tree.insert(i);			
+		}
+		tree.displayPath();
 	}
 	
-	static class DisplayBST extends JApplet {
-		private static final long serialVersionUID = 1L;
-		public DisplayBST() {
-			add(new Exercise03(new AVLTree<Integer>()));
-		}
-	}
-
-	/** Construct a view for a binary tree */
-	public Exercise03(AVLTree<Integer> tree) {
-		this.tree = tree;
-		setUI();
-	}
-
-	/** Initialize UI for binary tree */
-	private void setUI() {
-		this.setLayout(new BorderLayout());
-		add(view, BorderLayout.CENTER);
-		JPanel panel = new JPanel();
-		panel.add(new JLabel("Enter a key: "));
-		panel.add(jtfKey);
-		panel.add(jbtInsert);
-		panel.add(jbtDelete);
-		panel.add(jbtSearch);
-		add(panel, BorderLayout.SOUTH);
-
-
-		jbtInsert.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int key = Integer.parseInt(jtfKey.getText());
-				searchPath = tree.searchPath(key);
-				showSearchLenght = 0;
-				jtfKey.setEditable(false);
-				jbtInsert.setEnabled(false);
-				jbtDelete.setEnabled(false);
-				jbtSearch.setEnabled(false);
-				insertTimer.start();
-			}
-		});
-		
-		insertTimer = new Timer(500, new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(showSearchLenght >= searchPath.size()) {
-					insertTimer.stop();
-					jtfKey.setEditable(true);
-					jbtInsert.setEnabled(true);
-					jbtDelete.setEnabled(true);
-					jbtSearch.setEnabled(true);
-					tree.insert(Integer.parseInt(jtfKey.getText()));
-					showSearchLenght = -1;	
-					view.repaint();
-					jtfKey.setText("");
-					jtfKey.requestFocus();
-				} else {
-					showSearchLenght++;
-					view.repaint();
-					if(Integer.parseInt(jtfKey.getText()) == searchPath.get(showSearchLenght - 1)) {
-						insertTimer.stop();
-						jtfKey.setEditable(true);
-						jbtInsert.setEnabled(true);
-						jbtDelete.setEnabled(true);		
-						jbtSearch.setEnabled(true);
-						JOptionPane.showMessageDialog(null, jtfKey.getText()	+ " is already in the tree");
-						showSearchLenght = -1;	
-						view.repaint();
-						jtfKey.setText("");
-						jtfKey.requestFocus();
-					}
-				}
-			}
-		});
-		
-		jbtSearch.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int key = Integer.parseInt(jtfKey.getText());
-				searchPath = tree.searchPath(key);
-				showSearchLenght = 0;
-				jtfKey.setEditable(false);
-				jbtInsert.setEnabled(false);
-				jbtDelete.setEnabled(false);
-				jbtSearch.setEnabled(false);
-				searchTimer.start();
-			}
-		});
-		
-		searchTimer = new Timer(500, new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(showSearchLenght >= searchPath.size()) {
-					searchTimer.stop();
-					jtfKey.setEditable(true);
-					jbtInsert.setEnabled(true);
-					jbtDelete.setEnabled(true);
-					jbtSearch.setEnabled(true);
-					JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree");
-					showSearchLenght = -1;	
-					view.repaint();
-					jtfKey.setText("");
-					jtfKey.requestFocus();
-				} else {
-					showSearchLenght++;
-					view.repaint();
-					if(Integer.parseInt(jtfKey.getText()) == searchPath.get(showSearchLenght - 1)) {
-						searchTimer.stop();
-						jtfKey.setEditable(true);
-						jbtInsert.setEnabled(true);
-						jbtDelete.setEnabled(true);
-						jbtSearch.setEnabled(true);
-						jtfKey.setText("");
-						jtfKey.requestFocus();
-					}
-				}
-			}
-		});
-		
-		jbtDelete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int key = Integer.parseInt(jtfKey.getText());
-				searchPath = tree.searchPath(key);
-				showSearchLenght = 0;
-				jtfKey.setEditable(false);
-				jbtInsert.setEnabled(false);
-				jbtDelete.setEnabled(false);
-				jbtSearch.setEnabled(false);
-				deleteTimer.start();
-			}
-		});
-		
-		deleteTimer = new Timer(500, new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(showSearchLenght >= searchPath.size()) {
-					deleteTimer.stop();
-					jtfKey.setEditable(true);
-					jbtInsert.setEnabled(true);
-					jbtDelete.setEnabled(true);
-					jbtSearch.setEnabled(true);
-					JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree");
-					showSearchLenght = -1;	
-					view.repaint();
-					jtfKey.setText("");
-					jtfKey.requestFocus();
-				} else {
-					showSearchLenght++;
-					if(Integer.parseInt(jtfKey.getText()) == searchPath.get(showSearchLenght - 1)) {
-						deleteTimer.stop();
-						tree.delete(Integer.parseInt(jtfKey.getText()));
-						showSearchLenght = -1;	
-						jtfKey.setEditable(true);
-						jbtInsert.setEnabled(true);
-						jbtDelete.setEnabled(true);
-						jbtSearch.setEnabled(true);
-						jtfKey.setText("");
-						jtfKey.requestFocus();
-					}
-					view.repaint();
-				}
-			}
-		});
-	}
-
-	// Inner class TreeView for displaying a tree on a panel
-	class TreeView extends JPanel {
-		private static final long serialVersionUID = 1L;
-		private int radius = 20; // Tree node radius
-		private int vGap = 50; // Gap between two levels in a tree
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-
-			if (tree.getRoot() != null) {
-				// Display tree recursively
-				displayTree(g, tree.getRoot(), getWidth() / 2, 30, getWidth() / 4, 0);
-			}
-		}
-
-		/** Display a subtree rooted at position (x, y) */
-		private void displayTree(Graphics g, BST.TreeNode<Integer> root, int x,
-				int y, int hGap, int lenght) {
-			//System.out.println("lenght " + lenght);
-			//System.out.println("showSearchLenght " + showSearchLenght);
-			if(lenght < showSearchLenght) {
-				if((searchPath != null)&&(searchPath.contains(root.element))) {
-					g.setColor(Color.LIGHT_GRAY);
-					g.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
-					g.setColor(Color.BLACK);
-				}
-			}
-			
-			g.drawOval(x - radius, y - radius, 2 * radius, 2 * radius);
-			g.drawString(root.element + "", x - 6, y + 4);
-			g.drawString(tree.balanceFactor((AVLTree.AVLTreeNode<Integer>)(root)) + "", x - 6, y + radius + 15);
-
-			if (root.left != null) {
-				// Draw a line to the left node
-				connectTwoCircles(g, x - hGap, y + vGap, x, y);
-				// Draw the left subtree recursively
-				displayTree(g, root.left, x - hGap, y + vGap, hGap / 2, lenght + 1);
-			}
-
-			if (root.right != null) {
-				// Draw a line to the right node
-				connectTwoCircles(g, x + hGap, y + vGap, x, y);
-				// Draw the right subtree recursively
-				displayTree(g, root.right, x + hGap, y + vGap, hGap / 2, lenght + 1);
-			}
-		}
-
-		/** Connect two circles centered at (x1, y1) and (x2, y2) */
-		private void connectTwoCircles(Graphics g, int x1, int y1, int x2,
-				int y2) {
-			double d = Math.sqrt(vGap * vGap + (x2 - x1) * (x2 - x1));
-			int x11 = (int) (x1 - radius * (x1 - x2) / d);
-			int y11 = (int) (y1 - radius * (y1 - y2) / d);
-			int x21 = (int) (x2 + radius * (x1 - x2) / d);
-			int y21 = (int) (y2 + radius * (y1 - y2) / d);
-			g.drawLine(x11, y11, x21, y21);
-		}
-	}
-
 	static class AVLTree<E extends Comparable<E>> extends BST<E> {
 		/** Create a default AVL tree */
 		public AVLTree() {
@@ -266,10 +22,29 @@ public class Exercise03 extends JPanel {
 			super(objects);
 		}
 
+		public void displayPath() {
+			displayPath(root);
+		}
+		
+		public void displayPath(TreeNode<E> node) {
+			ArrayList<TreeNode<E>> list = getPath(node);
+			for (TreeNode<E> treeNode : list) {
+				System.out.print(treeNode.element + " ");
+			}
+			System.out.println();
+			if(node.left != null) {
+				displayPath(node.left);
+			}
+			if(node.right != null) {
+				displayPath(node.right);
+			}			
+		}
+		
+	
 		@Override
 		/** Override createNewNode to create an AVLTreeNode */
-		protected AVLTreeNode<E> createNewNode(E e) {
-			return new AVLTreeNode<E>(e);
+		protected AVLTreeNode<E> createNewNode(E e, TreeNode<E> parent) {
+			return new AVLTreeNode<E>(e, parent);
 		}
 
 		@Override
@@ -308,22 +83,19 @@ public class Exercise03 extends JPanel {
 			for (int i = path.size() - 1; i >= 0; i--) {
 				AVLTreeNode<E> A = (AVLTreeNode<E>) (path.get(i));
 				updateHeight(A);
-				AVLTreeNode<E> parentOfA = (A == root) ? null
-						: (AVLTreeNode<E>) (path.get(i - 1));
-
 				switch (balanceFactor(A)) {
 				case -2:
 					if (balanceFactor((AVLTreeNode<E>) A.left) <= 0) {
-						balanceLL(A, parentOfA); // Perform LL rotation
+						balanceLL(A); // Perform LL rotation
 					} else {
-						balanceLR(A, parentOfA); // Perform LR rotation
+						balanceLR(A); // Perform LR rotation
 					}
 					break;
 				case +2:
 					if (balanceFactor((AVLTreeNode<E>) A.right) >= 0) {
-						balanceRR(A, parentOfA); // Perform RR rotation
+						balanceRR(A); // Perform RR rotation
 					} else {
-						balanceRL(A, parentOfA); // Perform RL rotation
+						balanceRL(A); // Perform RL rotation
 					}
 				}
 			}
@@ -341,9 +113,14 @@ public class Exercise03 extends JPanel {
 		}
 
 		/** Balance LL (see Figure 9.1) */
-		private void balanceLL(TreeNode<E> A, TreeNode<E> parentOfA) {
+		private void balanceLL(TreeNode<E> A) {
+			TreeNode<E> parentOfA = A.parent;
 			TreeNode<E> B = A.left; // A is left-heavy and B is left-heavy
-
+			A.parent = B;
+			if(B.right != null) {
+				B.right.parent = A;
+			}
+			B.parent = parentOfA;						
 			if (A == root) {
 				root = B;
 			} else {
@@ -361,9 +138,19 @@ public class Exercise03 extends JPanel {
 		}
 
 		/** Balance LR (see Figure 9.1(c)) */
-		private void balanceLR(TreeNode<E> A, TreeNode<E> parentOfA) {
+		private void balanceLR(TreeNode<E> A) {
+			TreeNode<E> parentOfA = A.parent;
 			TreeNode<E> B = A.left; // A is left-heavy
 			TreeNode<E> C = B.right; // B is right-heavy
+			A.parent = C;
+			B.parent = C;
+			if(C.left != null) {
+				C.left.parent = B;
+			}
+			if(C.right != null) {
+				C.right.parent = A;
+			}
+			C.parent = parentOfA;			
 
 			if (A == root) {
 				root = C;
@@ -387,9 +174,15 @@ public class Exercise03 extends JPanel {
 		}
 
 		/** Balance RR (see Figure 9.1(b)) */
-		private void balanceRR(TreeNode<E> A, TreeNode<E> parentOfA) {
+		private void balanceRR(TreeNode<E> A) {
+			TreeNode<E> parentOfA = A.parent;
 			TreeNode<E> B = A.right; // A is right-heavy and B is right-heavy
-
+			A.parent = B;
+			if(B.left != null) {
+				B.left.parent = A;
+			}
+			B.parent = parentOfA;
+			
 			if (A == root) {
 				root = B;
 			} else {
@@ -407,10 +200,20 @@ public class Exercise03 extends JPanel {
 		}
 
 		/** Balance RL (see Figure 9.1(d)) */
-		private void balanceRL(TreeNode<E> A, TreeNode<E> parentOfA) {
+		private void balanceRL(TreeNode<E> A) {
+			TreeNode<E> parentOfA = A.parent;
 			TreeNode<E> B = A.right; // A is right-heavy
 			TreeNode<E> C = B.left; // B is left-heavy
-
+			A.parent = C;
+			B.parent = C;
+			if(C.left != null) {
+				C.left.parent = A;
+			}
+			if(C.right != null) {
+				C.right.parent = B;
+			}
+			C.parent = parentOfA;
+			
 			if (A == root) {
 				root = C;
 			} else {
@@ -502,66 +305,38 @@ public class Exercise03 extends JPanel {
 		}
 
 		/** AVLTreeNode is TreeNode plus height */
-		protected static class AVLTreeNode<E extends Comparable<E>> extends
-				BST.TreeNode<E> {
+		protected static class AVLTreeNode<E extends Comparable<E>> extends BST.TreeNode<E> {
 			protected int height = 0; // New data field
 
-			public AVLTreeNode(E o) {
-				super(o);
+			public AVLTreeNode(E o, TreeNode<E> parent) {
+				super(o, parent);
 			}
 		}
 	}
+	
 
 	static class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		protected TreeNode<E> root;
 		protected int size = 0;
-
-		public void inorder2() {
-			if (root == null) {
-				return;
-			}
-
-			LinkedList<TreeNode<E>> list = new LinkedList<>();
-			LinkedList<TreeNode<E>> stack = new LinkedList<>();
-			stack.add(root);
-
-			while (!stack.isEmpty()) {
-				TreeNode<E> node = stack.getFirst();
-				if ((node.left != null) && (!list.contains(node.left))) {
-					stack.push(node.left);
-				} else {
-					stack.removeFirst();
-					list.add(node);
-					if (node.right != null) {
-						stack.addFirst(node.right);
-					}
-				}
-			}
-			for (TreeNode<E> treeNode : list) {
-				System.out.print(treeNode.element + " ");
-			}
+		
+		/** Returns the parent for the specified node. */
+		public TreeNode<E> getParent(TreeNode<E> node) {
+			return node.parent;
 		}
-
-		public boolean isFullBST() {
-			return size == Math.round(Math.pow(2, height()) - 1);
-		}
-
-		/**
-		 * Returns the height of this binary tree, i.e., the number of the nodes
-		 * in the longest path of the root to a leaf
-		 */
-		public int height() {
-			return height(root);
-		}
-
-		public int height(TreeNode<E> node) {
-			if (node == null) {
-				return 0;
-			} else {
-				return 1 + Math.max(height(node.left), height(node.right));
+		
+		/** Returns the path from the specified node to the root
+		* in an array list. */
+		public ArrayList<TreeNode<E>> getPath(TreeNode<E> node) {
+			ArrayList<TreeNode<E>> result = new ArrayList<>();
+			while(node.parent != null) {
+				result.add(node);
+				node = node.parent;
 			}
+			result.add(node);
+			return result;
 		}
-
+		
+		
 		/** Create a default binary tree */
 		public BST() {
 		}
@@ -570,23 +345,6 @@ public class Exercise03 extends JPanel {
 		public BST(E[] objects) {
 			for (int i = 0; i < objects.length; i++)
 				insert(objects[i]);
-		}
-
-		/** Returns true if the element is in the tree */
-		public ArrayList<E> searchPath(E e) {
-			TreeNode<E> current = root; // Start from the root
-			ArrayList<E> result = new ArrayList<>();
-			while (current != null) {
-				result.add(current.element);
-				if (e.compareTo(current.element) < 0) {
-					current = current.left;
-				} else if (e.compareTo(current.element) > 0) {
-					current = current.right;
-				} else {
-					return result;
-				}
-			}
-			return result;
 		}
 
 		@Override
@@ -612,7 +370,7 @@ public class Exercise03 extends JPanel {
 		 * Return true if the element is inserted successfully */
 		public boolean insert(E e) {
 			if (root == null)
-				root = createNewNode(e); // Create a new root
+				root = createNewNode(e, null); // Create a new root
 			else {
 				// Locate the parent node
 				TreeNode<E> parent = null;
@@ -629,17 +387,17 @@ public class Exercise03 extends JPanel {
 
 				// Create the new node and attach it to the parent node
 				if (e.compareTo(parent.element) < 0)
-					parent.left = createNewNode(e);
+					parent.left = createNewNode(e, parent);
 				else
-					parent.right = createNewNode(e);
+					parent.right = createNewNode(e, parent);
 			}
 
 			size++;
 			return true; // Element inserted
 		}
 
-		protected TreeNode<E> createNewNode(E e) {
-			return new TreeNode<E>(e);
+		protected TreeNode<E> createNewNode(E e, TreeNode<E> parent) {
+			return new TreeNode<E>(e, parent);
 		}
 
 		@Override
@@ -695,10 +453,12 @@ public class Exercise03 extends JPanel {
 			protected E element;
 			protected TreeNode<E> left;
 			protected TreeNode<E> right;
+			protected TreeNode<E> parent;
 
-			public TreeNode(E e) {
+			public TreeNode(E e, TreeNode<E> parent) {
 				element = e;
-			}
+				this.parent = parent;
+			}			
 		}
 
 		@Override

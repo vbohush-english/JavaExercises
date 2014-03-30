@@ -5,32 +5,34 @@ import java.util.ArrayList;
 public class Exercise15 {
 
 	public static void main(String[] args) {
-		BST<Integer> tree = new BST<>(new Integer[] {60, 55, 100, 45, 57, 67, 107, 101, 59});
-		tree.doExercise();
+		BST<Integer> tree = new BST<>();
+		for (int i = 1; i <= 100; i++) {
+			tree.insert(i);			
+		}
+		tree.displayPath();
+		
 	}
 
 	static class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		protected TreeNode<E> root;
 		protected int size = 0;
 		
-		public void doExercise() {
-			ArrayList<TreeNode<E>> list = getPath(root);
+		public void displayPath() {
+			displayPath(root);
+		}
+		
+		public void displayPath(TreeNode<E> node) {
+			ArrayList<TreeNode<E>> list = getPath(node);
 			for (TreeNode<E> treeNode : list) {
 				System.out.print(treeNode.element + " ");
 			}
 			System.out.println();
-			
-			list = getPath(root.left.left);
-			for (TreeNode<E> treeNode : list) {
-				System.out.print(treeNode.element + " ");
+			if(node.left != null) {
+				displayPath(node.left);
 			}
-			System.out.println();
-			
-			list = getPath(root.right.right);
-			for (TreeNode<E> treeNode : list) {
-				System.out.print(treeNode.element + " ");
-			}
-			System.out.println();
+			if(node.right != null) {
+				displayPath(node.right);
+			}			
 		}
 		
 		/** Returns the parent for the specified node. */
