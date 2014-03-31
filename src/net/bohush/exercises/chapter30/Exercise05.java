@@ -1,6 +1,7 @@
 package net.bohush.exercises.chapter30;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Exercise05 {
@@ -27,6 +28,7 @@ public class Exercise05 {
 
 		UnweightedGraph<String> graph1 = new UnweightedGraph<String>(edges, vertices);
 		System.out.println(graph1.getPath(0, 11));
+		System.out.println(graph1.getPath(11, 0));
 	}
 	
 	static class UnweightedGraph<V> extends AbstractGraph<V> {
@@ -207,26 +209,6 @@ public class Exercise05 {
 		}
 
 		
-		public List<Integer> getPath(int u, int v) {
-			List<Integer> searchOrder = new ArrayList<Integer>();
-			boolean[] isVisited = new boolean[vertices.size()];
-			getPath(u, v, searchOrder, isVisited);
-			return searchOrder;
-		}
-		
-		private void getPath(int u, int v, List<Integer> searchOrder, boolean[] isVisited) {
-			searchOrder.add(v);
-			isVisited[v] = true;
-
-			for (int i : neighbors.get(v)) {
-				if (!isVisited[i]) {
-					getPath(i, v, searchOrder, isVisited);
-				}
-			}
-		}
-
-		
-		
 		@Override
 		/** Obtain a DFS tree starting from vertex v */
 		/** To be discussed in Section 27.6 */
@@ -261,6 +243,21 @@ public class Exercise05 {
 			}
 		}
 
+		
+		public List<Integer> getPath(int u, int v) {
+			Tree tree = bfs(u);
+			ArrayList<Integer> path = new ArrayList<>();
+
+			do {
+				path.add(v);
+				v = tree.parent[v];
+			} while (v != -1);
+
+			Collections.reverse(path);
+			return path;
+		}
+		
+		
 		@Override
 		/** Starting bfs search from vertex v */
 		/** To be discussed in Section 27.7 */
@@ -270,11 +267,7 @@ public class Exercise05 {
 			for (int i = 0; i < parent.length; i++)
 				parent[i] = -1; // Initialize parent[i] to -1
 
-			java.util.LinkedList<Integer> queue = new java.util.LinkedList<Integer>(); // list
-																						// used
-																						// as
-																						// a
-																						// queue
+			java.util.LinkedList<Integer> queue = new java.util.LinkedList<Integer>(); // list used as a queue
 			boolean[] isVisited = new boolean[vertices.size()];
 			queue.offer(v); // Enqueue v
 			isVisited[v] = true; // Mark it visited
@@ -290,7 +283,6 @@ public class Exercise05 {
 					}
 				}
 			}
-
 			return new Tree(v, parent, searchOrder);
 		}
 
