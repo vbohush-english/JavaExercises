@@ -3,11 +3,12 @@ package net.bohush.exercises.chapter30;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Exercise03 {
+public class Exercise04 {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.print("Enter a file name: ");
@@ -17,7 +18,6 @@ public class Exercise03 {
 		Scanner inputGraph = new Scanner(new File(fileName));
 		int numberOfVertices = inputGraph.nextInt();
 		inputGraph.nextLine();
-		System.out.println("The number of vertices is " + numberOfVertices);
 		ArrayList<Integer> vertices = new ArrayList<>();
 		ArrayList<AbstractGraph.Edge> edges = new ArrayList<>();
 		for (int i = 0; i < numberOfVertices; i++) {
@@ -31,14 +31,7 @@ public class Exercise03 {
 		}
 		inputGraph.close();
 		UnweightedGraph<Integer> graph = new UnweightedGraph<>(edges, vertices);
-		graph.printEdges();
-	
-		
-		if(graph.dfs2(0).getNumberOfVerticesFound() == numberOfVertices) {
-			System.out.println("The graph is connected");
-		} else {
-			System.out.println("The graph is not connected");
-		}
+		System.out.print(graph.getConnectedComponents());
 	}
 
 	static class UnweightedGraph<V> extends AbstractGraph<V> {
@@ -218,20 +211,23 @@ public class Exercise03 {
 			}
 		}
 
-		public Tree dfs2(int v) {
-			
-			List<Integer> searchOrder = new ArrayList<Integer>();
-			
-			int[] parent = new int[vertices.size()];
-			for (int i = 0; i < parent.length; i++) {
-				parent[i] = -1;
-			}
-
+		public List<List<Integer>> getConnectedComponents() {
 			boolean[] isVisited = new boolean[vertices.size()];
-
+			List<List<Integer>> result = new ArrayList<>();
+			for (int i = 0; i < vertices.size(); i++) {
+				if(!isVisited[i]) {
+					List<Integer> newList = getConnectedComponents(i, isVisited);
+					Collections.sort(newList);
+					result.add(newList);
+				}
+			}
+			return result;
+		}
+		
+		public List<Integer> getConnectedComponents(int v, boolean[] isVisited) {
+			List<Integer> searchOrder = new ArrayList<Integer>();
 			LinkedList<Integer> stack = new LinkedList<>();
-			stack.push(v);
-			
+			stack.push(v);			
 			while(!stack.isEmpty()) {
 				int newV = stack.pop();
 				if(!isVisited[newV]) {
@@ -239,13 +235,12 @@ public class Exercise03 {
 					isVisited[newV] = true;
 					for (int i : neighbors.get(newV)) {
 						if (!isVisited[i]) {
-							parent[i] = newV;
 							stack.push(i);
 						}
 					}
 				}
 			}
-			return new Tree(v, parent, searchOrder);
+			return searchOrder;
 		}
 		
 		@Override
