@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Exercise07 {
+public class Exercise08 {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.print("Enter a file name: ");
@@ -30,9 +30,7 @@ public class Exercise07 {
 		inputGraph.close();
 		UnweightedGraph<Integer> graph = new UnweightedGraph<>(edges, vertices);
 		graph.printEdges();
-		System.out.print("Enter a vertice: ");
-		int vertice = inputFileName.nextInt();
-		System.out.println(graph.getACycle(vertice));	
+		System.out.println(graph.isBipartite());	
 		
 	}
 	
@@ -213,89 +211,7 @@ public class Exercise07 {
 			}
 		}
 		
-		public List<Integer> getACycle(int u) {
-			List<Integer> searchOrder = new ArrayList<Integer>();
-			int[] parent = new int[vertices.size()];
-			for (int i = 0; i < parent.length; i++) {
-				parent[i] = -1;
-			}
-
-			boolean[] isVisited = new boolean[vertices.size()];
-
-			return getACycle(u, u, parent, searchOrder, isVisited);
-		}
-
-		private List<Integer> getACycle(int first, int v, int[] parent, List<Integer> searchOrder, boolean[] isVisited) {
-			searchOrder.add(v);
-			isVisited[v] = true;
-
-			for (int i : neighbors.get(v)) {
-				if (!isVisited[i]) {
-					parent[i] = v;
-					int[] newParent = java.util.Arrays.copyOf(parent, parent.length);
-					boolean[] newIsVisited = java.util.Arrays.copyOf(isVisited, parent.length);
-					@SuppressWarnings("unchecked")
-					List<Integer> newSearchOrder = (List<Integer>) ((ArrayList<Integer>)searchOrder).clone();
-					List<Integer> result = getACycle(first, i, newParent, newSearchOrder, newIsVisited);
-					if(result != null) {
-						return result;
-					}
-				} else if(first == i) {
-					if(searchOrder.size() > 2) {
-						return searchOrder;
-					}
-				}
-			}
-			return null;
-		}
-		
-		
-		public boolean isCyclic() {
-			for (int i = 0; i < vertices.size(); i++) {
-				if(isCyclic(i)) {
-					return true;
-				}
-			}
-			return false;
-		}
-		
-		private boolean isCyclic(int v) {
-			List<Integer> searchOrder = new ArrayList<Integer>();
-			int[] parent = new int[vertices.size()];
-			for (int i = 0; i < parent.length; i++) {
-				parent[i] = -1;
-			}
-
-			boolean[] isVisited = new boolean[vertices.size()];
-
-			return isCyclic(v, v, parent, searchOrder, isVisited);
-
-		}
-
-		private boolean isCyclic(int first, int v, int[] parent, List<Integer> searchOrder, boolean[] isVisited) {
-			searchOrder.add(v);
-			isVisited[v] = true;
-
-			for (int i : neighbors.get(v)) {
-				if (!isVisited[i]) {
-					parent[i] = v;
-					int[] newParent = java.util.Arrays.copyOf(parent, parent.length);
-					boolean[] newIsVisited = java.util.Arrays.copyOf(isVisited, parent.length);
-					@SuppressWarnings("unchecked")
-					List<Integer> newSearchOrder = (List<Integer>) ((ArrayList<Integer>)searchOrder).clone();
-					if(isCyclic(first, i, newParent, newSearchOrder, newIsVisited)) {
-						return true;
-					}
-				} else if(first == i) {
-					if(searchOrder.size() > 2) {
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-
-		
+	
 		@Override
 		/** Obtain a DFS tree starting from vertex v */
 		/** To be discussed in Section 27.6 */
@@ -330,6 +246,43 @@ public class Exercise07 {
 			}
 		}
 		
+		
+		public boolean isBipartite() {
+			int startV = 0;
+			List<Integer> searchOrder = new ArrayList<Integer>();
+			int[] parent = new int[vertices.size()];
+			for (int i = 0; i < parent.length; i++)
+				parent[i] = -1; // Initialize parent[i] to -1
+
+			java.util.LinkedList<Integer> queue = new java.util.LinkedList<Integer>(); // list used as a queue
+			boolean[] isVisited = new boolean[vertices.size()];
+			
+			char[] colors = new char[vertices.size()];
+			for (int i = 0; i < colors.length; i++)
+				colors[i] = 'n';
+			
+			queue.offer(startV); // Enqueue v
+			isVisited[startV] = true; // Mark it visited
+			colors[startV] = 'r';
+
+			while (!queue.isEmpty()) {
+				int u = queue.poll(); // Dequeue to u
+				searchOrder.add(u); // u searched
+				for (int w : neighbors.get(u)) {
+					if (!isVisited[w]) {
+						queue.offer(w); // Enqueue w
+						parent[w] = u; // The parent of w is u
+						isVisited[w] = true; // Mark it visited
+					}
+					if (colors[w] == 'n') {
+						colors[w] = (colors[u] == 'r' ? 'b' : 'r');
+					} else if(colors[w] == colors[u]) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
 		
 		@Override
 		/** Starting bfs search from vertex v */
