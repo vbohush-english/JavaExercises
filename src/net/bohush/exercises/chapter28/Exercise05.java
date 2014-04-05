@@ -93,6 +93,11 @@ public class Exercise05 {
 			public T next() {
 				return it.next();
 			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException("Remove not allowed!");
+			}
 		}
 		
 		@Override
