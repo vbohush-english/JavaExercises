@@ -2,7 +2,9 @@ package net.bohush.exercises.chapter31;
 
 import java.util.*;
 
-public class Exercise01 {
+
+
+public class Exercise02 {
 
 	  public static void main(String[] args) {
 		    String[] vertices = {"Seattle", "San Francisco", "Los Angeles",
@@ -30,7 +32,7 @@ public class Exercise01 {
 		    System.out.println("Total weight is " + tree1.getTotalWeight());
 		    tree1.printTree();
 		    
-		    WeightedGraph<String>.MST tree12 = graph1.getMinimumKruskalSpanningTree();
+		    WeightedGraph<String>.MST tree12 = graph1.getMinimumPrimSpanningTree();
 		    System.out.println("Total weight is " + tree12.getTotalWeight());
 		    tree12.printTree();
 
@@ -47,7 +49,7 @@ public class Exercise01 {
 		    System.out.println("Total weight is " + tree2.getTotalWeight());
 		    tree2.printTree();
 		    
-		    WeightedGraph<Integer>.MST tree22 =  graph2.getMinimumKruskalSpanningTree(1);
+		    WeightedGraph<Integer>.MST tree22 =  graph2.getMinimumPrimSpanningTree(1);
 		    System.out.println("Total weight is " + tree22.getTotalWeight());
 		    tree22.printTree();
 	}
@@ -149,43 +151,72 @@ public class Exercise01 {
 			queues.get(v).add(new WeightedEdge(v, u, weight));
 		}
 
-		public MST getMinimumKruskalSpanningTree() {
-			return getMinimumKruskalSpanningTree(0);
+		public MST getMinimumPrimSpanningTree() {
+			return getMinimumPrimSpanningTree(0);
 		}
 		
-		public MST getMinimumKruskalSpanningTree(int startingVertex) {
-			ArrayList<WeightedEdge> all = new ArrayList<>();
+		public MST getMinimumPrimSpanningTree(int startingVertex) {
+			Double[][] adjacencyMatrix = new Double[getSize()][getSize()];
 			for (int i = 0; i < queues.size(); i++) {
 				PriorityQueue<WeightedEdge> tmpQueue = queues.get(i);
 				for (WeightedEdge weightedEdge : tmpQueue) {
-					all.add(weightedEdge);
+					adjacencyMatrix[weightedEdge.u][weightedEdge.v] = weightedEdge.weight;
 				}
 			}
-			Collections.sort(all);
 			
 			List<V> newVertices = getVertices();
 			List<WeightedEdge> newEdges = new LinkedList<>();
-			
-			while(true) {
-				WeightedEdge newEdge1 = all.remove(0);
-				WeightedEdge newEdge2 = new WeightedEdge(newEdge1.v, newEdge1.u, newEdge1.weight);
-				for (int i = 0; i < all.size(); i++) {
-					if(newEdge2.equals(all.get(i))) {
-						all.remove(i);
-						break;
+			List<Integer> visited = new LinkedList<>();
+			WeightedEdge min = null;
+			for (int i = 0; i < adjacencyMatrix.length; i++) {
+				for (int j = 0; j < adjacencyMatrix[i].length; j++) {
+					if(adjacencyMatrix[i][j] != null) {
+						if((min == null)||(adjacencyMatrix[i][j] < min.weight)) {
+							min = new WeightedEdge(i, j, adjacencyMatrix[i][j]);
+						}
 					}
 				}
-				newEdges.add(newEdge1);
-				newEdges.add(newEdge2);
+			}
+			adjacencyMatrix[min.u][min.v] = null;
+			adjacencyMatrix[min.v][min.u] = null;
+			visited.add(min.v);
+			visited.add(min.u);
+			newEdges.add(min);
+			newEdges.add(new WeightedEdge(min.v, min.u, min.weight));
+			
+			while(true) {
+				min = null;
+				for (WeightedEdge weightedEdge : newEdges) {
+					for (int i = 0; i < adjacencyMatrix.length; i++) {
+						if(!(visited.contains(i) && visited.contains(weightedEdge.v)))
+						if(adjacencyMatrix[i][weightedEdge.v] != null) {
+							if((min == null)||(adjacencyMatrix[i][weightedEdge.v] < min.weight)) {
+								min = new WeightedEdge(i, weightedEdge.v, adjacencyMatrix[i][weightedEdge.v]);
+							}
+						}
+					}
+					for (int i = 0; i < adjacencyMatrix.length; i++) {
+						if(!(visited.contains(weightedEdge.u) && visited.contains(i)))
+						if(adjacencyMatrix[weightedEdge.u][i] != null) {
+							if((min == null)||(adjacencyMatrix[weightedEdge.u][i] < min.weight)) {
+								min = new WeightedEdge(weightedEdge.u, i, adjacencyMatrix[weightedEdge.u][i]);
+							}
+						}
+					}
+				}
+				
+				adjacencyMatrix[min.u][min.v] = null;
+				adjacencyMatrix[min.v][min.u] = null;
+				visited.add(min.v);
+				visited.add(min.u);
+				newEdges.add(min);
+				newEdges.add(new WeightedEdge(min.v, min.u, min.weight));
 				
 				WeightedGraph<V> tmpGraph =  new WeightedGraph<V>(newEdges, newVertices);
-				if(tmpGraph.isCyclic()) {
-					newEdges.remove(newEdges.size() - 1);
-					newEdges.remove(newEdges.size() - 1);
-				}
-			
+
 				Tree tree = tmpGraph.dfs(startingVertex);
-				if(tree.getNumberOfVerticesFound() == newVertices.size()) {					
+				if(tree.getNumberOfVerticesFound() == newVertices.size()) {	
+
 					double totalWeight = 0;
 					for (int i = 0; i < newEdges.size(); i++) {
 						totalWeight += newEdges.get(i).weight;
@@ -193,7 +224,9 @@ public class Exercise01 {
 					totalWeight = totalWeight / 2;					
 					return new MST(startingVertex, tree.parent, tree.searchOrder, totalWeight);
 				}
+				
 			}
+
 		}
 		
 		/** Get a minimum spanning tree rooted at vertex 0 */
