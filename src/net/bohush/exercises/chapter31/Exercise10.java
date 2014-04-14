@@ -2,48 +2,44 @@ package net.bohush.exercises.chapter31;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Exercise09 {
+public class Exercise10 {
 
 	public static void main(String[] args) throws FileNotFoundException {
+	    String[] vertices = {"Seattle", "San Francisco", "Los Angeles",
+	      "Denver", "Kansas City", "Chicago", "Boston", "New York",
+	      "Atlanta", "Miami", "Dallas", "Houston"};
+
+	    int[][] edges = {
+	      {0, 1, 807}, {0, 3, 1331}, {0, 5, 2097},
+	      {1, 0, 807}, {1, 2, 381}, {1, 3, 1267},
+	      {2, 1, 381}, {2, 3, 1015}, {2, 4, 1663}, {2, 10, 1435},
+	      {3, 0, 1331}, {3, 1, 1267}, {3, 2, 1015}, {3, 4, 599}, {3, 5, 1003},
+	      {4, 2, 1663}, {4, 3, 599}, {4, 5, 533}, {4, 7, 1260}, {4, 8, 864}, {4, 10, 496},
+	      {5, 0, 2097}, {5, 3, 1003}, {5, 4, 533}, {5, 6, 983}, {5, 7, 787},
+	      {6, 5, 983}, {6, 7, 214},
+	      {7, 4, 1260}, {7, 5, 787}, {7, 6, 214}, {7, 8, 888},
+	      {8, 4, 864}, {8, 7, 888}, {8, 9, 661}, {8, 10, 781}, {8, 11, 810},
+	      {9, 8, 661}, {9, 11, 1187},
+	      {10, 2, 1435}, {10, 4, 496}, {10, 8, 781}, {10, 11, 239},
+	      {11, 8, 810}, {11, 9, 1187}, {11, 10, 239}
+	    };
+
+
+	    WeightedGraph<String> graph =  new WeightedGraph<String>(edges, vertices);
 		System.out.print("Enter a file name: ");
 		@SuppressWarnings("resource")
 		Scanner inputFileName = new Scanner(System.in);
 		String fileName = inputFileName.nextLine();
-		Scanner inputGraph = new Scanner(new File(fileName));
-		int numberOfVertices = inputGraph.nextInt();
-		inputGraph.nextLine();
-		System.out.println("The number of vertices is " + numberOfVertices);
-		ArrayList<Integer> vertices = new ArrayList<>();
-		for (int i = 0; i < numberOfVertices; i++) {
-			vertices.add(i);
-		}
-		ArrayList<WeightedEdge> edges = new ArrayList<>();
-		while(inputGraph.hasNextLine()) {
-			String nextLine = inputGraph.nextLine();
-			nextLine = nextLine.replaceAll(",", "");
-			nextLine = nextLine.replaceAll("\\|", "");
-			Scanner inputVertic = new Scanner(nextLine);
-			while(inputVertic.hasNext()) {				
-				int u = inputVertic.nextInt();
-				int v = inputVertic.nextInt();
-				double weight = inputVertic.nextDouble();
-				edges.add(new WeightedEdge(u, v, weight));
-				edges.add(new WeightedEdge(v, u, weight));
-			}
-			inputVertic.close();
-		}
-		inputGraph.close();
-		WeightedGraph<Integer> graph = new WeightedGraph<>(edges, vertices);
-		graph.printWeightedEdges();
-		
-		WeightedGraph<Integer>.MST tree = graph.getMinimumSpanningTree();
-		System.out.println("Total weight is " + tree.getTotalWeight());
-		tree.printTree();
+		graph.saveEdgesToFile(new File(fileName));
+		System.out.println("File saved");
 
 	}
 
@@ -317,6 +313,65 @@ public class Exercise09 {
 				}
 			}
 		}
+
+		@Override
+		public void saveEdgesToFile(File file) {
+			try {
+				ArrayList<WeightedEdge> all = new ArrayList<>();
+				for (int i = 0; i < queues.size(); i++) {
+					PriorityQueue<WeightedEdge> tmpQueue = queues.get(i);
+					for (WeightedEdge weightedEdge : tmpQueue) {
+						if(!all.contains(new WeightedEdge(weightedEdge.v, weightedEdge.u, weightedEdge.weight))) {
+							all.add(weightedEdge);
+						}
+					}
+				}
+				Collections.sort(all, new WeightedEdgeComparator());
+				PrintWriter output = new PrintWriter(file);
+				output.print(vertices.size());
+				output.println();
+				for (int i = 0; i < all.size(); i++) {
+					WeightedEdge tmp = all.get(i);
+					output.print(tmp.u + " " + tmp.v + " " +tmp.weight + " ");
+					if((i + 1) < all.size()) {
+						if(tmp.u == all.get(i + 1).u) {
+							output.print("| ");
+						} else {
+							output.println();		
+						}
+					}					
+				}
+				output.close();				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	static class WeightedEdgeComparator implements Comparator<WeightedEdge> {
+		@Override
+		public int compare(WeightedEdge o1, WeightedEdge o2) {
+			if (o1.u > o2.u) {
+				return 1;
+			} else if (o1.u < o2.u) {
+				return -1;
+			} else {
+				if (o1.v > o2.v) {
+					return 1;
+				} else if (o1.v < o2.v) {
+					return -1;
+				} else {
+					if (o1.weight > o2.weight) {
+						return 1;
+					} else if (o1.weight < o2.weight) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}	
+			}
+		}
+		
 	}
 
 	static class WeightedEdge extends AbstractGraph.Edge implements Comparable<WeightedEdge> {
@@ -709,6 +764,8 @@ public class Exercise09 {
 		/** Return the degree for a specified vertex */
 		public int getDegree(int v);
 
+		public void saveEdgesToFile(File file);
+		
 		/** Print the edges */
 		public void printEdges();
 
