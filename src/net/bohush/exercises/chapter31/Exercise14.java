@@ -1,13 +1,14 @@
 package net.bohush.exercises.chapter31;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
 import javax.swing.*;
 
-public class Exercise12 extends JApplet {
+public class Exercise14 extends JApplet {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -37,7 +38,9 @@ public class Exercise12 extends JApplet {
 
     WeightedGraph<City> graph =  new WeightedGraph<City>(edges, vertices);
 	private GraphView graphView = new GraphView(graph);
-	public Exercise12() {
+	private AbstractGraph<City>.Tree path = graph.getMinimumSpanningTree();
+	
+	public Exercise14() {
 		setLayout(new BorderLayout(5, 5));
 		add(graphView, BorderLayout.CENTER);		
 	}
@@ -93,6 +96,32 @@ public class Exercise12 extends JApplet {
 				}
 			}
 			
+			if(path != null) {
+				g.setColor(Color.RED);
+				for (int i = 0; i < path.parent.length; i++) {
+					if (path.parent[i] != -1) {
+						int length = 20;
+						int x0 = vertices.get(i).getX();
+						int y0 = vertices.get(i).getY();
+						int x1 = vertices.get(path.parent[i]).getX();
+						int y1 = vertices.get(path.parent[i]).getY();
+						double angle1 = Math.atan2(y1 - y0, x1 - x0);
+						g.drawLine(x1, y1, x0, y0);
+						
+						double angle2 = Math.toRadians(Math.toDegrees(angle1) + 30);
+						int x2 = (int)(x0 + Math.cos(angle2) * length);
+						int y2 = (int)(y0 + Math.sin(angle2) * length);						
+						g.drawLine(x0, y0, x2, y2);
+						
+						double angle3 = Math.toRadians(Math.toDegrees(angle1) - 30);
+						int x3 = (int)(x0 + Math.cos(angle3) * length);
+						int y3 = (int)(y0 + Math.sin(angle3) * length);						
+						g.drawLine(x0, y0, x3, y3);
+						
+					}
+				}
+			}
+			
 		}
 	}
 
@@ -128,8 +157,8 @@ public class Exercise12 extends JApplet {
 	}
 
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Exercise12");
-		Exercise12 applet = new Exercise12();
+		JFrame frame = new JFrame("Exercise14");
+		Exercise14 applet = new Exercise14();
 		frame.add(applet);
 		applet.init();
 		applet.start();
