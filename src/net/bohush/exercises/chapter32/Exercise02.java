@@ -1,4 +1,4 @@
-package net.bohush.exercises.chapter18;
+package net.bohush.exercises.chapter32;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-public class Exercise17 extends JApplet {
+public class Exercise02 extends JApplet {
 
 	private static final long serialVersionUID = 1L;
 	private CarPanel carPanel1 = new CarPanel();
@@ -21,8 +21,8 @@ public class Exercise17 extends JApplet {
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
-		frame.add(new Exercise17());
-		frame.setTitle("Exercise17");
+		frame.add(new Exercise02());
+		frame.setTitle("Exercise02");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(600, 400);
 		frame.setLocationRelativeTo(null);
@@ -30,7 +30,7 @@ public class Exercise17 extends JApplet {
 	}
 
 	
-	public Exercise17() {
+	public Exercise02() {
 		JPanel panel2 = new JPanel(new GridLayout(1, 8));
 		jTextField1.addKeyListener(new KeyAdapter() {			
 			@Override
@@ -85,7 +85,7 @@ public class Exercise17 extends JApplet {
 		add(panel1, BorderLayout.CENTER);
 	}
 
-	class CarPanel extends JPanel {
+	class CarPanel extends JPanel  implements Runnable  {
 		private int yPos;
 		private int xPos;
 		private int size = 20;
@@ -95,7 +95,8 @@ public class Exercise17 extends JApplet {
 
 		public CarPanel() {
 			setBorder(new LineBorder(Color.BLACK));
-			timer.start();
+			Thread thread = new Thread(this);
+			thread.start();
 		}
 		
 		public void setSpeed(int speed) {
@@ -103,7 +104,6 @@ public class Exercise17 extends JApplet {
 				speed = 1;
 			}
 			this.speed = speed;
-			timer.setDelay(this.speed);
 		}
 		
 		@Override
@@ -128,16 +128,21 @@ public class Exercise17 extends JApplet {
 			g.fillPolygon(p);
 		}
 	
-		Timer timer = new Timer(speed, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				xPos += 5;
-				if (xPos >= getWidth()) {
-					xPos = - 5* size;	
+		@Override
+		public void run() {
+			try {
+				while (true) {
+					Thread.sleep(speed);
+					xPos += 1;
+					if (xPos >= getWidth()) {
+						xPos = -5 * size;
+					}
+					repaint();
 				}
-				repaint();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		});		
+		}
 
 	}
 }
