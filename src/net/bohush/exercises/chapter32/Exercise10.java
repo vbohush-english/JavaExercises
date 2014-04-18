@@ -1,11 +1,13 @@
 package net.bohush.exercises.chapter32;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
-public class Exercise09 {
+public class Exercise10 {
 
-	public static HashSet<Integer> set = new HashSet<>();
+	public static Set<Integer> set = Collections.synchronizedSet(new HashSet<Integer>());
 
 	public static void main(String[] args) {
 		new Thread1();
@@ -38,9 +40,12 @@ public class Exercise09 {
 		public void run() {
 			try {
 				while (true) {
-					for (Iterator<Integer> iterator = set.iterator(); iterator.hasNext();) {
-						iterator.next();						
-					}					
+					System.out.println(set.size());
+					synchronized (set) {
+						for (Iterator<Integer> iterator = set.iterator(); iterator.hasNext();) {
+							iterator.next();						
+						}						
+					}
 					Thread.sleep(1000);
 				}
 			} catch (InterruptedException e) {
