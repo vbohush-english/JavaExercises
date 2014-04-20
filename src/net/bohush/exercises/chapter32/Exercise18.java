@@ -1,26 +1,30 @@
-package net.bohush.exercises.chapter20;
+package net.bohush.exercises.chapter32;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.*;
 
-public class Exercise34 extends JApplet{
+public class Exercise18 extends JApplet{
 
 	private static final long serialVersionUID = 1L;	
 	private JLabel label = new JLabel(" ");
 	
-	public Exercise34() {		
-		add(new QueensPanel(8), BorderLayout.CENTER);
+	public Exercise18() {		
+		add(new QueensPanel(12), BorderLayout.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label, BorderLayout.SOUTH);
 	}
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
-		frame.add(new Exercise34());
-		frame.setTitle("Exercise34");
+		frame.add(new Exercise18());
+		frame.setTitle("Exercise18");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
@@ -33,7 +37,7 @@ public class Exercise34 extends JApplet{
 		private int size;
 		int currentBoard = -1;
 		
-		private ArrayList<StringBuilder> queensList = new ArrayList<>();
+		private List<String> queensList = Collections.synchronizedList(new ArrayList<String>());
 		
 		public QueensPanel(int size) {
 			this.size = size;
@@ -82,22 +86,52 @@ public class Exercise34 extends JApplet{
 			return new Dimension(size * 50, size * 50);
 		}
 	
+
 		private void getBoard(int size) {
 			queensList.clear();
-			StringBuilder s = new StringBuilder();
+
+			ExecutorService executor = Executors.newFixedThreadPool(size);
 			for (int i = 0; i < size; i++) {
-				s.append((char)(i));
+				StringBuilder s1 = new StringBuilder();
+				s1.append((char)(i));
+				
+				StringBuilder s2 = new StringBuilder();
+				for (int j = 0; j < size; j++) {
+					if(i != j) {
+						s2.append((char)(j));
+					}
+				}
+				executor.execute(new GetBoard(s1, s2));				
 			}
-			getBoard(new StringBuilder(), s);
+			executor.shutdown();			
+			while(queensList.size() < 20) {				
+			}
+			
 			currentBoard++;
+		}
+		
+		private class GetBoard implements Runnable {
+			private StringBuilder s1;
+			private StringBuilder s2;
+			
+			public GetBoard(StringBuilder s1, StringBuilder s2) {
+				this.s1 = s1;
+				this.s2 = s2;
+			}
+
+			@Override
+			public void run() {
+				getBoard(s1, s2);				
+			}
+			
 		}
 		
 		private void getBoard(StringBuilder s1, StringBuilder s2) {
 			if (s2.length() == 2) {			
 				if (isDiagonalFine(new StringBuilder(s1).append(s2)))
-					queensList.add(new StringBuilder(s1).append(s2));
+					queensList.add((new StringBuilder(s1).append(s2)).toString());
 				if (isDiagonalFine(new StringBuilder(s1).append(s2.charAt(1)).append(s2.charAt(0))))
-					queensList.add(new StringBuilder(s1).append(s2.charAt(1)).append(s2.charAt(0)));
+					queensList.add((new StringBuilder(s1).append(s2.charAt(1)).append(s2.charAt(0))).toString());
 			} else {
 				for (int i = 0; i < s2.length(); i++) {
 					StringBuilder newS2 = new StringBuilder();
@@ -121,5 +155,7 @@ public class Exercise34 extends JApplet{
 			}
 			return true;	
 		}
+
+
 	}
 }
