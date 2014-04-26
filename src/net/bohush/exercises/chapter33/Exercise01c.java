@@ -39,7 +39,7 @@ public class Exercise01c extends JFrame {
 
 		jButton1.addActionListener(new Listener());
 
-		setTitle("Client");
+		setTitle("Exercise01c");
 		setSize(500, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
