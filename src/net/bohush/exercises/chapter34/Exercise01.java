@@ -142,7 +142,7 @@ public class Exercise01 extends JApplet {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Statement statement = connection.createStatement();
-					statement.executeUpdate("delete Staff;");
+					statement.executeUpdate("delete from Staff;");
 					jTextField1.setText("");
 					jTextField2.setText("");
 					jTextField3.setText("");
@@ -173,7 +173,7 @@ public class Exercise01 extends JApplet {
 		Exercise01 applet = new Exercise01();
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Find Grades");
+		frame.setTitle("Exercise01");
 		frame.getContentPane().add(applet, BorderLayout.CENTER);
 		applet.init();
 		applet.start();
