@@ -1,55 +1,58 @@
 Exercises from the book "Introduction to Java Programming, Comprehensive Version, 9th Edition" By Y. Daniel Liang
+
 http://www.cs.armstrong.edu/liang/intro9e/toc.html
 
-- Chapter  1 - 12 exercises;
-- Chapter  2 - 27 exercises;
-- Chapter  3 - 35 exercises;
-- Chapter  4 - 47 exercises;
-- Chapter  5 - 39 exercises;
-- Chapter  6 - 34 exercises;
-- Chapter  7 - 36 exercises;
-- Chapter  8 - 14 exercises;
-- Chapter  9 - 31 exercises;
-- Chapter 10 - 21 exercises;
-- Chapter 11 - 12 exercises;
-- Chapter 12 - 14 exercises;
-- Chapter 13 - 32 exercises;
-- Chapter 14 - 29 exercises;
-- Chapter 15 - 22 exercises;
-- Chapter 16 - 40 exercises;
-- Chapter 17 - 21 exercises;
-- Chapter 18 - 37 exercises;
-- Chapter 19 - 21 exercises;
-- Chapter 20 - 39 exercises;
-- Chapter 21 - 10 exercises;
-- Chapter 22 - 22 exercises;
-- Chapter 23 - 10 exercises;
-- Chapter 24 - 25 exercises;
-- Chapter 25 - 20 exercises;
-- Chapter 26 - 11 exercises;
-- Chapter 27 - 24 exercises;
-- Chapter 28 - 9 exercises;
-- Chapter 29 - 5 exercises;
-- Chapter 30 - 25 exercises;
-- Chapter 31 - 17 exercises;
-- Chapter 32 - 21 exercises;
-- Chapter 33 - 10 exercises;
-- Chapter 34 - 10 exercises;
-- Chapter 35 - 11 exercises;
-- Chapter 36 - 6 exercises;
-- Chapter 37 - 10 exercises;
-- Chapter 38 - 9 exercises;
-- Chapter 39 - 14 exercises;
-- Chapter 40 - 11 exercises;
-- Chapter 41 - 8 exercises;
-- Chapter 42 - 14 exercises;
-- Chapter 43 - 20 exercises;
-- Chapter 44 - 12 exercises;
-- Chapter 45 - 5 exercises;
-- Chapter 46 - 8 exercises;
-- Chapter 47 - 7 exercises;
-- Chapter 48 - 4 exercises;
-- Chapter 49 - 18 exercises;
-- Chapter 50 - 4 exercises;
+| Chapter Number       | Chapter Name           | Number of Exercises  |
+| ------------- |-------------| -----|
+| 1 | Introduction to Computers, Programming, and Java | 12|
+| 2 | Elementary Programming | 27|
+| 3 | Selections | 35|
+| 4 | Loops | 47|
+| 5 | Methods | 39|
+| 6 | Single-Dimensional Arrays | 34|
+| 7 | Multidimensional Arrays | 36|
+| 8 | Objects and Classes | 14|
+| 9 | Strings | 31|
+|10 | Thinking in Objects | 21|
+|11 | Inheritance and Polymorphism | 12|
+|12 | GUI Basics | 14|
+|13 | Graphics | 32|
+|14 | Exception Handling and Text I/O | 29|
+|15 | Abstract Classes and Interfaces | 22|
+|16 | Event-Driven Programming | 40|
+|17 | GUI Componenets | 21|
+|18 | Applets and Multimedia | 37|
+|19 | Binary I/O | 21|
+|20 | Recursion | 39|
+|21 | Generics | 10|
+|22 | Lists, Stacks, Queues, and Priority Queues | 22|
+|23 | Sets and Maps | 10|
+|24 | Developing Efficient Algorithms | 25|
+|25 | Sorting | 20|
+|26 | Implementing Lists, Stacks, Queues, and Priority Queues | 11|
+|27 | Binary Search Trees | 24|
+|28 | Hashing | 9|
+|29 | AVL Trees | 5|
+|30 | Graphs and Applications | 25|
+|31 | Weighted Graphs and Applications | 17|
+|32 | Multithreading and Parallel Programming | 21|
+|33 | Networking | 10|
+|34 | Java Database Programming | 10|
+|35 | Internationalization | 11|
+|36 | JavaBeans and Bean Events | 6|
+|37 | Containers, Layout Managers, and Borders | 10|
+|38 | Menus, Toolbars, and Dialogs | 9|
+|39 | MVC and Swing Models | 14|
+|40 | JTable and JTree | 11|
+|41 | Advanced Java Database Programming | 8|
+|42 | Servlets | 14|
+|43 | JavaServer Pages | 20|
+|44 | JavaServer Faces 2 | 12|
+|45 | Web Services | 5|
+|46 | Remote Method Invocation | 8|
+|47 | 2-4 Trees and B-Trees | 7|
+|48 | Red-Black Trees | 4|
+|49 | Java 2D | 18|
+|50 | Testing Using JUnit | 4|
+|**Total** |  | **943**|
 
-Total 943 exercises in 50 chapters.
