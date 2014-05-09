@@ -12,9 +12,9 @@ import java.text.NumberFormat;
 public class Exercise05 extends JApplet {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField jTextField1 = new JTextField("10000", 20);
-	private JTextField jTextField2 = new JTextField("1", 20);
-	private JTextField jTextField3 = new JTextField("7", 20);
+	private JTextField jTextField1 = new JTextField(20);
+	private JTextField jTextField2 = new JTextField(20);
+	private JTextField jTextField3 = new JTextField(20);
 	private JTextArea jTextArea = new JTextArea(20, 20);
 	
 	public Exercise05() {
@@ -36,26 +36,30 @@ public class Exercise05 extends JApplet {
 		jButton.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(getLocale());
-						
-				double amount = Double.parseDouble(jTextField1.getText());
-				double years =  Double.parseDouble(jTextField2.getText());
-				double rate =  Double.parseDouble(jTextField3.getText());
+				try {
+					NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(getLocale());
+					
+					double amount = Double.parseDouble(jTextField1.getText());
+					double years =  Double.parseDouble(jTextField2.getText());
+					double rate =  Double.parseDouble(jTextField3.getText());
 
-				double monthlyInterestRate = rate / 1200;
-				double monthlyPayment = amount * monthlyInterestRate / (1 - 1 / Math.pow(1 + monthlyInterestRate, years * 12));
-				double totalPayment = monthlyPayment * years * 12;
+					double monthlyInterestRate = rate / 1200;
+					double monthlyPayment = amount * monthlyInterestRate / (1 - 1 / Math.pow(1 + monthlyInterestRate, years * 12));
+					double totalPayment = monthlyPayment * years * 12;
 
-				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.append("Monthly Payment: " + currencyFormat.format(monthlyPayment) + "\nTotal Payment: " + currencyFormat.format(totalPayment) + "\n");
-				stringBuilder.append(String.format("\n%8s%20s%20s%20s\n", "Payment", "Interest", "Principal", "Balance"));
-				for (int i = 0; i < years * 12; i++) {
-					double interest = monthlyInterestRate * amount;
-					double principal = monthlyPayment - interest;
-					amount = amount - principal;
-					stringBuilder.append(String.format("%8d%20s%20s%20s\n", (i + 1), currencyFormat.format(interest), currencyFormat.format(principal), currencyFormat.format(amount)));
+					StringBuilder stringBuilder = new StringBuilder();
+					stringBuilder.append("Monthly Payment: " + currencyFormat.format(monthlyPayment) + "\nTotal Payment: " + currencyFormat.format(totalPayment) + "\n");
+					stringBuilder.append(String.format("\n%8s%20s%20s%20s\n", "Payment", "Interest", "Principal", "Balance"));
+					for (int i = 0; i < years * 12; i++) {
+						double interest = monthlyInterestRate * amount;
+						double principal = monthlyPayment - interest;
+						amount = amount - principal;
+						stringBuilder.append(String.format("%8d%20s%20s%20s\n", (i + 1), currencyFormat.format(interest), currencyFormat.format(principal), currencyFormat.format(amount)));
+					}
+					jTextArea.setText(stringBuilder.toString());
+				} catch (NumberFormatException e2) {
+					JOptionPane.showMessageDialog(null, "Exception: " + e2.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
-				jTextArea.setText(stringBuilder.toString());
 			}
 		});
 		jPanel2.add(jButton, BorderLayout.EAST);
