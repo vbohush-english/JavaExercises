@@ -74,13 +74,13 @@ public class Exercise02 extends JFrame {
 		
 		@Override
 		public void run() {
-			int size = 256 * 128; //128kb
+			int size = 256 * 1024; //1Mb
 			fillMemory(size);
 		}
 		
 		public void fillMemory(int size) {
 			try {
-				Thread.sleep(100);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {}
 			@SuppressWarnings("unused")
 			int[] array = new int[size];
@@ -108,7 +108,7 @@ public class Exercise02 extends JFrame {
 		}
 		
 		public MemoryWatch() {
-			this(1024 * 1024 * 10, 1024 * 1024 * 20);
+			this(1024 * 1024 * 200, 1024 * 1024 * 400);
 		}
 
 		public long getHighLimit() {
