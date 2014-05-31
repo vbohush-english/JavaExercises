@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,32 +20,18 @@ import javax.swing.Timer;
 
 public class Exercise04 extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private Clock[] clocks;
 	public Exercise04() {
-		int clockCount = 4;
-		clocks= new Clock[clockCount];
-		setLayout(new GridLayout(1, clockCount));
-		for (int i = 0; i < clockCount; i++) {
-			clocks[i] = new Clock(); 
-			add(clocks[i]);
-		}
-		JButton button = new JButton("set");
-		button.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				/*clocks[0].setHeader("1111111111");
-				clocks[1].setDateStyle(DateFormat.LONG);
-				clocks[2].setDigitalDateTimeColor(Color.red);
-				clocks[3].setTimeStyle(DateFormat.LONG);*/
-				clocks[1].setUsingTimeZoneID(false);
-				clocks[1].setUsingTimeZoneID(false);
-				clocks[1].setUsingTimeZoneID(false);
-				
+		setLayout(new GridLayout(1, 4));
+		Clock clock1 = new Clock();
+		clock1.setHeader("Kyiv");
+		Clock clock2 = new Clock("London", "GMT+1"); 
+		Clock clock3 = new Clock("New York", "GMT-4"); 
+		Clock clock4 = new Clock("Sydney", "GMT+10"); 
+		add(clock1);
+		add(clock2);
+		add(clock3);
+		add(clock4);
 
-			}
-		});
-		add(button);
 	}
 	
 	public static void main(String[] args) {
@@ -61,7 +46,7 @@ public class Exercise04 extends JFrame {
 	class Clock extends JPanel {
 		private static final long serialVersionUID = 1L;
 
-		private Color headColor = Color.black;
+		private Color headColor;
 		private Color hourHandColor = Color.green;
 		private Color minuteHandColor = Color.blue;
 		private Color secondHandColor = Color.red;
@@ -80,8 +65,8 @@ public class Exercise04 extends JFrame {
 	
 		private Timer timer = new Timer(1000, new TimerListener());
 		private StillClock clock;
-		private JLabel jlblDigitTime = new JLabel(" ", JLabel.CENTER);
-		private JLabel jlblHeader = new JLabel(" ", JLabel.CENTER);
+		private JLabel jlblDigitTime = new JLabel("", JLabel.CENTER);
+		private JLabel jlblHeader = new JLabel("", JLabel.CENTER);
 		
 		public Color getHeadColor() {
 			return headColor;
@@ -89,6 +74,7 @@ public class Exercise04 extends JFrame {
 
 		public void setHeadColor(Color headColor) {
 			this.headColor = headColor;
+			jlblHeader.setForeground(headColor);
 		}
 
 		public Color getHourHandColor() {
@@ -183,17 +169,6 @@ public class Exercise04 extends JFrame {
 		}
 		
 		
-		
-		public String getTimeZoneID() {
-			return timeZoneID;
-		}
-
-		public void setTimeZoneID(String timeZoneID) {
-			this.timeZoneID = timeZoneID;
-			timeZone = TimeZone.getTimeZone(timeZoneID);
-			timeZoneOffset = timeZone.getOffset(System.currentTimeMillis());
-		}
-
 		public int getTimeZoneOffset() {
 			return timeZoneOffset;
 		}
@@ -201,29 +176,34 @@ public class Exercise04 extends JFrame {
 		public boolean isUsingTimeZoneID() {
 			return usingTimeZoneID;
 		}
-
-		public void setUsingTimeZoneID(boolean usingTimeZoneID) {
-			this.usingTimeZoneID = usingTimeZoneID;
+		
+		public String getTimeZoneID() {
+			return timeZoneID;
 		}
 
 		public TimeZone getTimeZone() {
 			return timeZone;
 		}
-		
-		public void setTimeZone(TimeZone timeZone) {
-			this.timeZone = timeZone;
-			timeZoneID = timeZone.getID();
-			timeZoneOffset = timeZone.getOffset(System.currentTimeMillis());
-		}
 
 		public Clock(String header, String timeZoneID) {
-			setTimeZoneID(timeZoneID);
+			if(timeZoneID == null) {
+				this.timeZoneID = null;
+				timeZone = null;
+				usingTimeZoneID = false;
+				timeZoneOffset = 0;				
+			} else {
+				this.timeZoneID = timeZoneID;
+				timeZone = TimeZone.getTimeZone(timeZoneID);
+				usingTimeZoneID = true;
+				timeZoneOffset = timeZone.getOffset(System.currentTimeMillis());
+			}			
 			setLayout(new BorderLayout());
 			add(jlblHeader, BorderLayout.NORTH);
 			clock = new StillClock();
 			add(clock, BorderLayout.CENTER);
 			add(jlblDigitTime, BorderLayout.SOUTH);
 			setDigitalDateTimeColor(Color.MAGENTA);
+			setHeadColor(Color.DARK_GRAY);
 			refreshTime();
 			setShowingDigitalDateTime(true);
 			setShowingHeader(true);
@@ -232,11 +212,11 @@ public class Exercise04 extends JFrame {
 		}
 
 		public Clock(String timeZoneID) {
-			this(" ", timeZoneID);
+			this("", timeZoneID);
 		}
 		
 		public Clock() {
-			this(Calendar.getInstance().getTimeZone().getID());
+			this(null);
 		}
 		
 		private class TimerListener implements ActionListener {
@@ -328,7 +308,7 @@ public class Exercise04 extends JFrame {
 				int radius = (int) (Math.min(getWidth(), getHeight()) * 0.4);
 
 				// Draw circle
-				g.setColor(headColor);
+				g.setColor(Color.BLACK);
 				g.drawOval(xCenter - radius, yCenter - radius, 2 * radius, 2 * radius);
 				g.drawLine(xCenter + radius - 15, yCenter, xCenter + radius, yCenter);
 				g.drawString("3", xCenter + radius - 25, yCenter);
@@ -386,7 +366,6 @@ public class Exercise04 extends JFrame {
 				this.hour = calendar.get(Calendar.HOUR_OF_DAY);
 				this.minute = calendar.get(Calendar.MINUTE);
 				this.second = calendar.get(Calendar.SECOND);
-				System.out.println(hour);
 			}
 
 			@Override
