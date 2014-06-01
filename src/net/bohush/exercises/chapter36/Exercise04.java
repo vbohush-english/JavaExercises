@@ -43,7 +43,7 @@ public class Exercise04 extends JFrame {
 		frame.setVisible(true);
 	}
 
-	class Clock extends JPanel {
+	static class Clock extends JPanel {
 		private static final long serialVersionUID = 1L;
 
 		private Color headColor;
@@ -359,7 +359,7 @@ public class Exercise04 extends JFrame {
 				if(usingTimeZoneID) {
 					calendar = new GregorianCalendar(timeZone, getLocale());
 				} else {
-					calendar = new GregorianCalendar();
+					calendar = new GregorianCalendar(getLocale());
 				}
 				
 				// Set current hour, minute and second
