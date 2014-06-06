@@ -2,13 +2,14 @@ package net.bohush.exercises.chapter37;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,15 +23,27 @@ public class Exercise09 extends JFrame{
 	
 	private JSplitPane jSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, new JButton("left button"), new JButton("right button"));
 	private JTextField jTextField = new JTextField("20");
-	
+	private JCheckBox jCheckBox = new JCheckBox("Continous Layout");
 	public Exercise09() {
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout(10, 10));
 		jSplitPane.setDividerSize(20);
 		add(jSplitPane, BorderLayout.CENTER);
 		
 		JPanel jPanel1 = new JPanel(new GridLayout(2, 1, 5, 5));
 		JRadioButton jRadioButton1 = new JRadioButton("Horizontal", true);
 		JRadioButton jRadioButton2 = new JRadioButton("Vertical");
+		jRadioButton1.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jSplitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+			}
+		});
+		jRadioButton2.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+			}
+		});
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(jRadioButton1);
 		buttonGroup.add(jRadioButton2);
@@ -43,7 +56,20 @@ public class Exercise09 extends JFrame{
 		jPanel2.add(jPanel1, BorderLayout.WEST);
 		
 		JPanel jPanel3 = new JPanel(new BorderLayout(5, 5));
-		JCheckBox jCheckBox = new JCheckBox("Continous Layout");
+		jCheckBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jSplitPane.setContinuousLayout(jCheckBox.isSelected());
+			}
+		});
+		jTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					jSplitPane.setDividerSize(Integer.parseInt(jTextField.getText()));	
+				} catch (NumberFormatException e2) {}				
+			}
+		});
 		jPanel3.add(jCheckBox, BorderLayout.NORTH);
 		JPanel jPanel4 = new JPanel(new BorderLayout(5, 5));
 		jPanel4.add(new JLabel("Divider Size "), BorderLayout.WEST);
