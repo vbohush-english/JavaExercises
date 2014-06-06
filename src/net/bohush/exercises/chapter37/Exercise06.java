@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class Exercose06 extends JApplet {
+public class Exercise06 extends JApplet {
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane jtpFigures = new JTabbedPane();
 	private FigurePanel squarePanel = new FigurePanel();
@@ -15,7 +15,7 @@ public class Exercose06 extends JApplet {
 	private FigurePanel circlePanel = new FigurePanel();
 	private FigurePanel ovalPanel = new FigurePanel();
 
-	public Exercose06() {
+	public Exercise06() {
 	
 		
 		JPanel jPanel1 = new JPanel(new BorderLayout());
@@ -81,10 +81,10 @@ public class Exercose06 extends JApplet {
 	/** Main method */
 	public static void main(String[] args) {
 		// Create a frame
-		JFrame frame = new JFrame("Exercose06");
+		JFrame frame = new JFrame("Exercise06");
 
 		// Create an instance of the applet
-		Exercose06 applet = new Exercose06();
+		Exercise06 applet = new Exercise06();
 		applet.init();
 
 		// Add the applet instance to the frame
