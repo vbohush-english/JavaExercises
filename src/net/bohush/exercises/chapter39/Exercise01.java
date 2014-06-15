@@ -13,7 +13,7 @@ public class Exercise01 extends JApplet {
 	private ChartModel model = new ChartModel();
 
 	public Exercise01() {
-		int[] data = {200, 40, 50, 100, 40};
+		double[] data = {200, 40, 50, 100, 40};
 		String[] dataName = {"CS", "Math", "Chem", "Biol", "Phys"};
 		model.setChartData(dataName, data);
 		PieChartView pieChartView = new PieChartView();
@@ -25,6 +25,18 @@ public class Exercise01 extends JApplet {
 		jPanel1.setBorder(new EmptyBorder(10, 10, 10, 10));
 		jPanel1.add(barChartView);
 		jPanel1.add(pieChartView);
+		jPanel1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+		        JFrame frame = new JFrame("Controller");
+		        ChartController controller = new ChartController();
+		        controller.setModel(model);
+		        frame.add(controller);
+		        frame.setSize(200, 200);
+		        frame.setLocation(200, 200);
+		        frame.setVisible(true);
+			}
+		});
 		setLayout(new BorderLayout());
 		add(jPanel1);
 	}
@@ -35,19 +47,19 @@ public class Exercise01 extends JApplet {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Exercise01");
 		frame.getContentPane().add(applet, BorderLayout.CENTER);
-		frame.pack();
+		frame.setSize(800, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
 	public class ChartModel {
-		private int[] data;
+		private double[] data;
 		private String[] dataName;
 		private Color[] dataColors;
 
 		private ArrayList<ActionListener> actionListenerList;
 		
-		public int[] getData() {
+		public double[] getData() {
 			return data;
 		}
 		
@@ -63,17 +75,21 @@ public class Exercise01 extends JApplet {
 			return data.length;
 		}
 		
-		public void setChartData(String[] newDataName, int[] newData) {
+		public void setChartData(String[] newDataName, double[] newData) {
 			if(newDataName.length != newData.length) {
 				throw new IllegalArgumentException();
 			}
-			data = new int[newData.length];
+			data = new double[newData.length];
 			dataName = new String[newData.length];
-			dataColors = new Color[newData.length];
+			if((dataColors == null)||(dataColors.length != newData.length)) {
+				dataColors = new Color[newData.length];
+				for (int i = 0; i < dataColors.length; i++) {
+					dataColors[i] = new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256));
+				}
+			}
 			for (int i = 0; i < newData.length; i++) {
 				data[i] = newData[i];
 				dataName[i]= newDataName[i];
-				dataColors[i] = new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256));
 			}
 			processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "filled"));
 		}
@@ -198,19 +214,19 @@ public class Exercise01 extends JApplet {
 				int height = getHeight();
 				int step = width / model.getSize();
 				int widthStep = step - 10;
-				int heightStep = model.getData()[0];
+				double heightStep = model.getData()[0];
 				for (int i = 1; i < model.getSize(); i++) {
 					if(model.getData()[i] > heightStep) {
 						heightStep = model.getData()[i];
 					}
 				}
-				heightStep = (int)((height - 20.0) / heightStep);
+				heightStep = (height - 20.0) / heightStep;
 				g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
 				for (int i = 0; i < model.getSize(); i++) {
 					g.setColor(model.getDataColors()[i]);
-					g.fillRect(5 + step * i, height - (heightStep * model.getData()[i]) - 5, widthStep, (heightStep * model.getData()[i]) - 5);
+					g.fillRect(5 + step * i, height - (int)(heightStep * model.getData()[i]) - 5, widthStep, (int)(heightStep * model.getData()[i]) - 5);
 					g.setColor(Color.BLACK);
-					g.drawString(model.getDataName()[i], 5 + step * i, height - (heightStep * model.getData()[i]) - 10);
+					g.drawString(model.getDataName()[i], 5 + step * i, height - (int)(heightStep * model.getData()[i]) - 10);
 				}
 				g.drawLine(0, height - 10, getWidth(), height - 10);
 			}
@@ -218,63 +234,58 @@ public class Exercise01 extends JApplet {
 	}
 		
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public class ChartController extends JPanel {
 		private static final long serialVersionUID = 1L;
 		private ChartModel chartModel;
-		private JTextField jtfRadius = new JTextField();
-		private JComboBox<Boolean> jcboFilled = new JComboBox<Boolean>(new Boolean[] {new Boolean(false), new Boolean(true) });
+		private JTextField[] jtfData;
+		private JTextField[] jtfDataName;
 
-		/** Creates new form CircleController */
-		/*public CircleController() {
-			// Panel to group labels
-			JPanel panel1 = new JPanel();
-			panel1.setLayout(new GridLayout(2, 1));
-			panel1.add(new JLabel("Radius"));
-			panel1.add(new JLabel("Filled"));
-
-			// Panel to group text field, combo box, and another panel
-			JPanel panel2 = new JPanel();
-			panel2.setLayout(new GridLayout(2, 1));
-			panel2.add(jtfRadius);
-			panel2.add(jcboFilled);
-
-			setLayout(new BorderLayout());
-			add(panel1, BorderLayout.WEST);
-			add(panel2, BorderLayout.CENTER);
-
-			// Register listeners
-			jtfRadius.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (model != null) // Set radius in the model
-						model.setRadius(Double.parseDouble(jtfRadius.getText()));
+		public void setModel(ChartModel newModel) {
+			chartModel = newModel;
+			if(chartModel != null) {
+				removeAll();
+				jtfData = new JTextField[chartModel.getSize()];
+				jtfDataName = new JTextField[chartModel.getSize()];
+			
+				JPanel panel1 = new JPanel();
+				panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
+				panel1.setLayout(new GridLayout(chartModel.getSize(), 2, 5, 5));
+	
+				KeyAdapter keyAdapter = new KeyAdapter() {
+					@Override
+					public void keyReleased(KeyEvent e) {
+						try {
+							double[] data = new double[jtfData.length];
+							String[] dataName = new String[jtfData.length];
+							for (int i = 0; i < dataName.length; i++) {
+								data[i] = Double.parseDouble(jtfData[i].getText());
+								if(data[i] < 0) {
+									throw new NumberFormatException();
+								}
+								dataName[i] = jtfDataName[i].getText();
+							}
+							model.setChartData(dataName, data);	
+						} catch (NumberFormatException e2) {
+						}						
+					}
+				};
+				
+				for (int i = 0; i < chartModel.getSize(); i++) {
+					jtfData[i] = new JTextField(chartModel.getData()[i] + "");
+					jtfDataName[i] = new JTextField(chartModel.getDataName()[i]);
+					panel1.add(jtfData[i]);
+					panel1.add(jtfDataName[i]);
+					jtfData[i].addKeyListener(keyAdapter);
+					jtfDataName[i].addKeyListener(keyAdapter);
 				}
-			});
-			jcboFilled.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (model != null) // Set filled property value in the model
-						model.setFilled(((Boolean) jcboFilled.getSelectedItem())
-								.booleanValue());
-				}
-			});
+				setLayout(new BorderLayout());
+				add(panel1, BorderLayout.CENTER);
+				revalidate();
+			}
 		}
 
-		public void setModel(CircleModel newModel) {
-			model = newModel;
-		}
-
-		public CircleModel getModel() {
+		public ChartModel getModel() {
 			return model;
-		}*/
+		}
 	}
 }
