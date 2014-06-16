@@ -6,7 +6,7 @@ import javax.swing.event.*;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-public class Exercise04 extends JApplet {
+public class Exercise05 extends JApplet {
 	private static final long serialVersionUID = 1L;
 
 	// Create a JSpinner
@@ -17,7 +17,7 @@ public class Exercise04 extends JApplet {
 	private JLabel label2 = new JLabel("", JLabel.CENTER);
 	private JLabel label3 = new JLabel("", JLabel.CENTER);
 
-	public Exercise04() {
+	public Exercise05() {
 		add(spinner, BorderLayout.NORTH);
 		JPanel jPanel = new JPanel(new GridLayout(3, 1, 5, 5));
 		jPanel.add(label1);
@@ -36,45 +36,24 @@ public class Exercise04 extends JApplet {
 		});
 	}
 
-	class CustomSpinnerModel extends AbstractSpinnerModel {
+	class CustomSpinnerModel extends SpinnerNumberModel {
 		private static final long serialVersionUID = 1L;
-		long value = 1;
-		
-		@Override
-		public Object getValue() {
-			return value;
-		}
-
-		@Override
-		public void setValue(Object value) {
-			this.value = (long) value;
-			fireStateChanged();
-		}
 
 		@Override
 		public Object getNextValue() {
-			if(value + value <= 0L) {
-				return value;
-			} else {
-				return value + value;	
-			}
-						
+			return super.getPreviousValue();
 		}
 
 		@Override
 		public Object getPreviousValue() {
-			if(value == 1L) {
-				return 1L;
-			} else {
-				return value / 2L;	
-			}			
+			return super.getNextValue();
 		}
 		
 	}
 	public static void main(String[] args) {
-		javax.swing.JFrame frame = new javax.swing.JFrame("Exercise04");
+		javax.swing.JFrame frame = new javax.swing.JFrame("Exercise05");
 
-		Exercise04 applet = new Exercise04();
+		Exercise05 applet = new Exercise05();
 
 		// Add the applet instance to the frame
 		frame.getContentPane().add(applet, java.awt.BorderLayout.CENTER);
