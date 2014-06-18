@@ -53,7 +53,7 @@ public class Exercise11 extends JApplet {
 		Exercise11 applet = new Exercise11();
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("ComboBoxCellRendererDemo");
+		frame.setTitle("Exercise11");
 		frame.getContentPane().add(applet, BorderLayout.CENTER);
 		applet.init();
 		applet.start();
