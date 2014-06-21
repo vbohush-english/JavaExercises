@@ -135,7 +135,7 @@ public class Exercise08 extends JApplet {
 		Exercise08 applet = new Exercise08();
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("TestTreePath");
+		frame.setTitle("Exercise08");
 		frame.getContentPane().add(applet, BorderLayout.CENTER);
 		applet.init();
 		applet.start();
