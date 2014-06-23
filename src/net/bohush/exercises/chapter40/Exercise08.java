@@ -27,6 +27,7 @@ public class Exercise08 extends JApplet {
 		JPanel panel = new JPanel();
 		panel.add(jbtShowPath);
 		panel.add(jbtShowPaths);
+		
 		panel.add(jButton1);
 		panel.add(jButton2);
 		panel.add(jButton3);
