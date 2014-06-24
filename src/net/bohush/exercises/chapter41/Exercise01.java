@@ -17,6 +17,7 @@ public class Exercise01 extends JApplet {
 	private DBConnectionDialog connectionDialog = new DBConnectionDialog();
 	private Connection connection = null;
 	private JTextArea jTextArea1 = new JTextArea(10, 20);
+	private int queryCount = 3000;
 	
 	public void init() {
 		JPanel jPanel1 = new JPanel(new GridLayout(1, 2, 5, 5));
@@ -47,13 +48,14 @@ public class Exercise01 extends JApplet {
 				try {
 					long time = System.currentTimeMillis();
 					Statement statement = connection.createStatement();
-					for (int i = 0; i < 1000; i++) {
+					for (int i = 0; i < queryCount; i++) {
 						statement.addBatch("insert into Temp values (" + Math.random() + ", " + Math.random() + ", " + Math.random() + ")");
 					}
 					statement.executeBatch();
 					time = System.currentTimeMillis() - time;
 					jTextArea1.append("Batch update completed\n");
 					jTextArea1.append("The elapsed time is " + time + "\n");
+					statement.execute("delete from temp;");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -65,12 +67,13 @@ public class Exercise01 extends JApplet {
 				try {
 					long time = System.currentTimeMillis();
 					Statement statement = connection.createStatement();
-					for (int i = 0; i < 1000; i++) {
-						statement.executeQuery("insert into Temp values (" + Math.random() + ", " + Math.random() + ", " + Math.random() + ")");
+					for (int i = 0; i < queryCount; i++) {
+						statement.execute("insert into Temp values (" + Math.random() + ", " + Math.random() + ", " + Math.random() + ");");
 					}
 					time = System.currentTimeMillis() - time;
 					jTextArea1.append("Non-Batch update completed\n");
 					jTextArea1.append("The elapsed time is " + time + "\n");
+					statement.execute("delete from temp;");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -146,6 +149,7 @@ public class Exercise01 extends JApplet {
 			jPanel1.add(jPanel2, BorderLayout.WEST);
 
 			JPanel jPanel3 = new JPanel(new GridLayout(4, 1, 5, 5));
+			jComboBox.setSelectedIndex(1);
 			jPanel3.add(jComboBox);
 			jPanel3.add(jTextField1);
 			jPanel3.add(jTextField2);
