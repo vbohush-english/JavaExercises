@@ -73,13 +73,6 @@ public class Exercise05 extends JApplet {
 					rowSet.execute();
 					rowSet.beforeFirst();
 					tableEditor1.setRowSet(rowSet);
-					
-					/*
-					Class.forName(((String) jcboDriver.getSelectedItem()).trim());
-					Connection connection = DriverManager.getConnection(((String) jcboURL.getSelectedItem()).trim(), jtfUserName.getText().trim(), new String(jpfPassword.getPassword()));
-					Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-					resultSet = statement.executeQuery("select * from " + jtfTableName.getText().trim());
-					*/
 				} catch (Exception ex) {
 					jlblStatus.setText(ex.toString());
 				}
