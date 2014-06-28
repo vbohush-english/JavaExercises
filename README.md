@@ -1,4 +1,4 @@
-Exercises from the book "Introduction to Java Programming, Comprehensive Version, 9th Edition" By Y. Daniel Liang
+Exercises from the book **"Introduction to Java Programming, Comprehensive Version, 9th Edition"** By Y. Daniel Liang
 
 http://www.cs.armstrong.edu/liang/intro9e/toc.html
 
