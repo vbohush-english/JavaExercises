@@ -8,6 +8,18 @@
         <servlet-name>Exercise02</servlet-name>
         <servlet-class>net.bohush.exercises.chapter42.Exercise02</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Exercise03</servlet-name>
+        <servlet-class>net.bohush.exercises.chapter42.Exercise03a</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Exercise03b</servlet-name>
+        <servlet-class>net.bohush.exercises.chapter42.Exercise03b</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>Exercise03c</servlet-name>
+        <servlet-class>net.bohush.exercises.chapter42.Exercise03c</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Exercise01</servlet-name>
         <url-pattern>/Exercise42_01</url-pattern>
@@ -15,6 +27,18 @@
     <servlet-mapping>
         <servlet-name>Exercise02</servlet-name>
         <url-pattern>/Exercise42_02</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Exercise03</servlet-name>
+        <url-pattern>/Exercise42_03a</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Exercise03b</servlet-name>
+        <url-pattern>/Exercise42_03b</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>Exercise03c</servlet-name>
+        <url-pattern>/Exercise42_03c</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
