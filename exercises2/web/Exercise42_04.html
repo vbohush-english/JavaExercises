@@ -1,0 +1,31 @@
+<!--An HTML Form Demo -->
+<html>
+    <head>
+        <title>Exercise42_04</title>
+    </head>
+    <body>
+    <center>
+        <h3>Compute Tax</h3>
+
+        <form action = "Exercise42_04" method = "post">
+            <!-- Name text fields -->
+            <p><label>Taxable Income</label>
+                <input type = "text" name = "income" size = "20" />
+            </p>
+
+            <p><label>Filing Status</label> 
+                <select name = "status" size = "1">
+                    <option value = "0">single filer</option>
+                    <option value = "1">married jointly or qualifying widow(er),</option>
+                    <option value = "2">married separately</option>
+                    <option value = "3">head of household</option>
+                </select>
+
+                <!-- Submit and Reset buttons -->
+            <p><input type = "submit" value = "Compute Tax" />
+                <input type = "reset" value = "Reset" /></p>
+        </form>        
+    </center>
+</body>
+
+</html>
