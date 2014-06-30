@@ -11,7 +11,7 @@ public class Exercise04 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int income = Integer.parseInt(request.getParameter("income"));
+        double income = Double.parseDouble(request.getParameter("income"));
         int status = Integer.parseInt(request.getParameter("status"));
 
         
@@ -19,7 +19,7 @@ public class Exercise04 extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Exercise42_02</title>");            
+            out.println("<title>Exercise42_04</title>");            
             out.println("</head><center>");
             out.println("<p>Taxable Income: " + income + "</p>");
             out.println("<p>Filing Status: " + status + "</p>");
