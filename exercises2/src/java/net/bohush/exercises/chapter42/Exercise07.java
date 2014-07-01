@@ -34,7 +34,7 @@ public class Exercise07 extends HttpServlet {
                     out.println("SSN <b>" + ssn + "</b> not found in course <b>" + course);                           
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Exercise07.class.getName()).log(Level.SEVERE, null, ex);
+                out.println("Error while execuring query");
             }
 
             out.println("</center><body></body>");
