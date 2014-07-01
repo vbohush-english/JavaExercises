@@ -1,16 +1,19 @@
 package net.bohush.exercises.chapter42;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Exercise06 extends HttpServlet {
+public class Exercise07 extends HttpServlet {
 
+    private Statement statement;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String ssn = request.getParameter("ssn");
@@ -20,33 +23,36 @@ public class Exercise06 extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Exercise42_06</title>");            
+            out.println("<title>Exercise42_07</title>");            
             out.println("</head><center>");
-            
-            File file = new File(course + ".txt");
-            boolean found = false;
-            if (file.exists()) {
-                Scanner input = new Scanner(file);
-                while(input.hasNextLine()) {
-                    String[] student = input.nextLine().split("#");
-                    if(student[1].equals(ssn)) {
-                        out.println(student[0] + " " + student[2]);
-                        found = true;
-                        break;
-                    }                    
+
+            try {
+                ResultSet rset = statement.executeQuery("select * from " + course + " where ssn = \"" + ssn + "\";");
+                if (rset.next()) {
+                    out.println(rset.getString("name") + " " + rset.getString("score"));    
+                } else {
+                    out.println("SSN <b>" + ssn + "</b> not found in course <b>" + course);                           
                 }
-                if(!found){
-                    out.println("SSN <b>" + ssn + "</b> not found");        
-                }
-            } else {
-                out.println("Course <b>" + course + "</b> not found");    
+            } catch (SQLException ex) {
+                Logger.getLogger(Exercise07.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             out.println("</center><body></body>");
             out.println("</html>");
         }
     }
-    
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javabook", "scott", "tiger");
+            statement = connection.createStatement();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(Exercise07.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
