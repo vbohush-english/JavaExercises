@@ -8,29 +8,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Exercise10 extends HttpServlet {
+public class Exercise11 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        Cookie cookie1 = new Cookie("color", "red");
-        Cookie cookie2 = new Cookie("radius", "5.5");
-        Cookie cookie3 = new Cookie("count", "2");
-        int cookieTime = 2 * 60 * 60 * 24;
-        cookie1.setMaxAge(cookieTime);
-        cookie2.setMaxAge(cookieTime);
-        cookie3.setMaxAge(cookieTime);
-        response.addCookie(cookie1);
-        response.addCookie(cookie2);
-        response.addCookie(cookie3);
-
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Exercise42_10</title>");            
-            out.println("</head><body>");
-            out.println("</body>");
+            out.println("<title>Exercise42_11</title>");            
+            out.println("</head><body><center><br>");
+    
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cookie : cookies) {
+                out.println(cookie.getName() + "\'s value is " + cookie.getValue() + "<br><br>");
+            }
+
+            out.println("</center></body>");
             out.println("</html>");
         }
     }
