@@ -52,6 +52,10 @@
         <servlet-name>Exercise11</servlet-name>
         <servlet-class>net.bohush.exercises.chapter42.Exercise11</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Exercise12</servlet-name>
+        <servlet-class>net.bohush.exercises.chapter42.Exercise12</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Exercise01</servlet-name>
         <url-pattern>/Exercise42_01</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>Exercise11</servlet-name>
         <url-pattern>/Exercise42_11</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Exercise12</servlet-name>
+        <url-pattern>/Exercise42_12</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
