@@ -3,7 +3,7 @@
     <head>
         <title>Exercise43_01</title>
     </head>
-    <body><table border=\"1\">
+    <body><center><table border="1">
             <tr><td>Number</td><td>Factorial</td></tr>
             
             <% for (int i = 0; i <= 10; i++) {%>
@@ -18,4 +18,4 @@
                     }
                 }
             %>
-</table></body></html>
+</table></center></body></html>
