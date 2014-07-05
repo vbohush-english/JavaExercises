@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.bohush.exercises.chapter42.Exercise07;
 
 public class Exercise06 {
     private Statement statement;
