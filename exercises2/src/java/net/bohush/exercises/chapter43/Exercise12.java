@@ -66,7 +66,7 @@ public class Exercise12 {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javabook", "scott", "tiger");
             statement = connection.createStatement();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Exercise07.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Exercise12.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
