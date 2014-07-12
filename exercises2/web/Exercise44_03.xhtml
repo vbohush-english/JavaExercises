@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Exercise44_03</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <center>
+                <h3>
+                    Compute Tax
+                </h3>
+            
+                <h:panelGrid columns="6">
+                    <h:outputLabel value="Taxable income"/>
+                    <h:inputText id="income" value="#{exercise03.income}"/>
+
+                </h:panelGrid>
+                <br />
+                <h:panelGrid columns="4">
+                    <h:outputLabel value="Filing status "/>
+                    <h:selectOneMenu id="status" value="#{exercise03.status}">
+                        <f:selectItem itemValue="0" itemLabel="single filer"/>
+                        <f:selectItem itemValue="1" itemLabel="married jointly or qualifying widow(er)"/>
+                        <f:selectItem itemValue="2" itemLabel="married separately"/>
+                        <f:selectItem itemValue="3" itemLabel="head of household"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandButton value="Compute Tax" />
+                <br /><br />
+                <h:outputText escape="false" style="color:red" value="#{exercise03.tax}" />
+            </center>
+        </h:form>
+    </h:body>
+</html>
+
