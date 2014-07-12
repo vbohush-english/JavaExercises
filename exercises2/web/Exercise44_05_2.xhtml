@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Exercise44_05_2</title>
+    </h:head>
+    <h:body>
+        <br />
+        <br />
+        <center>
+            <table>
+                <ui:repeat value="#{exercise05.numbers}" var="number">
+                    <tr>
+                        <td height="30"><h:outputLabel value="#{number.number1}"/></td>
+                        <td height="30"><h:outputLabel value="+"/></td>
+                        <td height="30"><h:outputLabel value="#{number.number2}"/></td>
+                        <td height="30"><h:outputLabel value="="/></td>
+                        <td height="30"><h:outputLabel value="#{number.guess}"/></td>
+                        <td height="30"><h:outputLabel value="#{number.check()}"/></td>
+                    </tr>
+                </ui:repeat>
+            </table>
+            <br />
+            There are <h:outputLabel value="#{exercise05.correctCount}"/> correct guesses
+            #{exercise05.resetCorrectCount()}
+        </center>
+    </h:body>
+</html>
+
