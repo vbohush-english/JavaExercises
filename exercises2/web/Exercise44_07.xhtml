@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Exercise44_07</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <center>
+            <br />
+            <br />
+            <table>
+                <tr><td  colspan="5"><center>Check the boxes if your birthday is in these sets</center></td></tr>
+                <tr>
+                <ui:repeat value="#{exercise07.dates}" var="dates1">
+                    <td width = "120"><fieldset><table>
+                        <ui:repeat value="#{dates1}" var="dates2">
+                            <tr>
+                                <ui:repeat value="#{dates2}" var="dates3">
+                                    <td width = "20"><h:outputLabel value="#{dates3}"/></td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                    </table></fieldset></td>
+                </ui:repeat>
+                </tr>
+                <tr>
+                    <ui:repeat value="#{exercise07.checked}" var="checked" varStatus="loop">
+                        <td width = "120"><center><h:selectBooleanCheckbox value="#{exercise07.checked[loop.index]}" /></center></td>
+                    </ui:repeat>
+                </tr>
+            </table><br />
+            <input type = "submit" value = "Find date" />
+            <br /><br /><h:outputLabel  style="color:red"  value="#{exercise07.getDay()}"/>
+            </center>
+        </h:form>
+    </h:body>
+</html>
