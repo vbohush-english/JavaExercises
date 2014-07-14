@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Exercise44_09</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <center>
+                <table>
+                    <tr align="center"><td height="50"><p><font color = "#FF0000"><h:outputLabel value="#{exercise09.errorMessage}"/></font></p></td></tr><tr align="left"><td>
+                    <fieldset><legend>Staff Information</legend>
+                        <p><h:inputText size = "5"  style="background-color: yellow" value="#{exercise09.id}" /></p>
+                        <p>Last Name: <h:inputText value="#{exercise09.lastName}" />
+                            First Name: <h:inputText value="#{exercise09.firstName}" />
+                            MI: <h:inputText size="5" value="#{exercise09.mi}" /></p>
+                        <p>Address: <h:inputText value="#{exercise09.address}" /></p>
+                        <p>City: <h:inputText value="#{exercise09.city}" />
+                            State: <h:inputText size="5" value="#{exercise09.state}" /></p>
+                        <p>Telephone: <h:inputText value="#{exercise09.telephone}" /></p>
+                    </fieldset></td></tr><tr align="center"><td>
+                            <p><h:commandButton value="View" action="#{exercise09.doView()}"/>
+                        <h:commandButton value="Insert" action="#{exercise09.doInsert()}"/>
+                        <h:commandButton value="Update" action="#{exercise09.doUpdate()}"/>
+                        <h:commandButton value="Delete" action="#{exercise09.doDelete()}"/>
+                    </p></td></tr>
+                </table>
+            </center>
+        </h:form>
+    </h:body>
+</html>
+
