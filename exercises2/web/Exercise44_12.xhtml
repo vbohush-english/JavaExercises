@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Exercise44_12</title>
+    </h:head>
+    <h:body><h:form><center><br /><br />
+        Enter four card values and click the button to determine<br />
+        whether the four values has a 24-point solution<br />
+        <br />
+        <table><tr>
+                <td width="50"><center><h:inputText value="#{exercise12.number0}" size="5"/></center></td>
+                <td width="50"><center><h:inputText value="#{exercise12.number1}" size="5"/></center></td>
+                <td width="50"><center><h:inputText value="#{exercise12.number2}" size="5"/></center></td>
+                <td width="50"><center><h:inputText value="#{exercise12.number3}" size="5"/></center></td>
+        </tr></table>
+        <br /><p><font color = "#FF0000"><h:outputLabel value="#{exercise12.solution}"/></font></p><br />
+        <h:commandButton value="Refresh"/>
+    </center></h:form></h:body>
+</html>
+
