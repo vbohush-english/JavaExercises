@@ -21,9 +21,9 @@
     </target>
     <target name="wsgen-Exercise01" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-net.bohush.exercises.chapter45.Exercise01.xml"/>
+            <fileset dir="${webinf.dir}" includes="wsit-net.bohush.exercises.chapter45.webservices.Exercise01.xml"/>
         </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="net.bohush.exercises.chapter45.Exercise01" xendorsed="true">
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="net.bohush.exercises.chapter45.webservices.Exercise01" xendorsed="true">
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
@@ -32,4 +32,32 @@
                 JAX-WS WSIMPORT SECTION
                 ===================
             -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-Exercise45_01" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Exercise45_01"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Exercise45_01" destdir="${build.generated.dir}/jax-wsCache/Exercise45_01" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Exercise45_01/wsdl/localhost_8080/exercises2/Exercise45_01.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/exercises2/Exercise45_01?WSDL" xnocompile="true" xendorsed="true" package="net.bohush.exercises.chapter45.client">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Exercise45_01/wsdl/localhost_8080/exercises2/Exercise45_01.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Exercise45_01"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Exercise45_01">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Exercise45_01" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/net/bohush/exercises/chapter45/client"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Exercise45_01"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Exercise45_01"/>
 </project>

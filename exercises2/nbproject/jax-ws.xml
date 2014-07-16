@@ -2,8 +2,45 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="Exercise01">
-      <implementation-class>net.bohush.exercises.chapter45.Exercise01</implementation-class>
+      <implementation-class>net.bohush.exercises.chapter45.webservices.Exercise01</implementation-class>
     </service>
   </services>
-  <clients/>
+  <clients>
+    <client name="Exercise45_01">
+      <wsdl-url>http://localhost:8080/exercises2/Exercise45_01?WSDL</wsdl-url>
+      <local-wsdl-file>localhost_8080/exercises2/Exercise45_01.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">net.bohush.exercises.chapter45.client</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8080/exercises2/Exercise45_01?WSDL</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>net.bohush.exercises.chapter45.client</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+  </clients>
 </jax-ws>
