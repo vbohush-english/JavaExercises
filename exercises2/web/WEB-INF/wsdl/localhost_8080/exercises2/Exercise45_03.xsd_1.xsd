@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.3 (tags/2.3-7528; 2013-04-29T19:34:10+0000) JAXWS-RI/2.2.8 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://webservices.chapter45.exercises.bohush.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservices.chapter45.exercises.bohush.net/">
+
+<xs:element name="getAnnualInterestRate" type="tns:getAnnualInterestRate"/>
+
+<xs:element name="getAnnualInterestRateResponse" type="tns:getAnnualInterestRateResponse"/>
+
+<xs:element name="getLoanAmount" type="tns:getLoanAmount"/>
+
+<xs:element name="getLoanAmountResponse" type="tns:getLoanAmountResponse"/>
+
+<xs:element name="getLoanDate" type="tns:getLoanDate"/>
+
+<xs:element name="getLoanDateResponse" type="tns:getLoanDateResponse"/>
+
+<xs:element name="getMonthlyPayment" type="tns:getMonthlyPayment"/>
+
+<xs:element name="getMonthlyPaymentResponse" type="tns:getMonthlyPaymentResponse"/>
+
+<xs:element name="getNumberOfYears" type="tns:getNumberOfYears"/>
+
+<xs:element name="getNumberOfYearsResponse" type="tns:getNumberOfYearsResponse"/>
+
+<xs:element name="getTotalPayment" type="tns:getTotalPayment"/>
+
+<xs:element name="getTotalPaymentResponse" type="tns:getTotalPaymentResponse"/>
+
+<xs:element name="setAnnualInterestRate" type="tns:setAnnualInterestRate"/>
+
+<xs:element name="setAnnualInterestRateResponse" type="tns:setAnnualInterestRateResponse"/>
+
+<xs:element name="setLoanAmount" type="tns:setLoanAmount"/>
+
+<xs:element name="setLoanAmountResponse" type="tns:setLoanAmountResponse"/>
+
+<xs:element name="setNumberOfYears" type="tns:setNumberOfYears"/>
+
+<xs:element name="setNumberOfYearsResponse" type="tns:setNumberOfYearsResponse"/>
+
+<xs:element name="toString" type="tns:toString"/>
+
+<xs:element name="toStringResponse" type="tns:toStringResponse"/>
+
+<xs:complexType name="getTotalPayment">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getTotalPaymentResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getMonthlyPayment">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getMonthlyPaymentResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setLoanAmount">
+<xs:sequence>
+<xs:element name="arg0" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setLoanAmountResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getLoanDate">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getLoanDateResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setNumberOfYears">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setNumberOfYearsResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getLoanAmount">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getLoanAmountResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="toString">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="toStringResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAnnualInterestRate">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getAnnualInterestRateResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getNumberOfYears">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getNumberOfYearsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setAnnualInterestRate">
+<xs:sequence>
+<xs:element name="arg0" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setAnnualInterestRateResponse">
+<xs:sequence/>
+</xs:complexType>
+</xs:schema>

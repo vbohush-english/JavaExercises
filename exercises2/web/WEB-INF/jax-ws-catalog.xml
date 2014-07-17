@@ -4,4 +4,6 @@
     <system systemId="http://localhost:8080/exercises2/Exercise45_01?xsd=1" uri="wsdl/localhost_8080/exercises2/Exercise45_01.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/exercises2/Exercise45_02?WSDL" uri="wsdl/localhost_8080/exercises2/Exercise45_02.wsdl"/>
     <system systemId="http://localhost:8080/exercises2/Exercise45_02?xsd=1" uri="wsdl/localhost_8080/exercises2/Exercise45_02.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/exercises2/Exercise45_03?WSDL" uri="wsdl/localhost_8080/exercises2/Exercise45_03.wsdl"/>
+    <system systemId="http://localhost:8080/exercises2/Exercise45_03?xsd=1" uri="wsdl/localhost_8080/exercises2/Exercise45_03.xsd_1.xsd"/>
 </catalog>

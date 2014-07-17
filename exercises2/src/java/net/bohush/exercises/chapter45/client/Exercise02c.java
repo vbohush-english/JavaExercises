@@ -9,8 +9,8 @@ import net.bohush.exercises.chapter45.exercise02.Exercise4502;
 public class Exercise02c extends JApplet {
 // Declare a service object and a proxy object
 
-    private Exercise4502 exercise4501 = new Exercise4502();
-    private Exercise02 proxy = exercise4501.getExercise02Port();
+    private Exercise4502 exercise4502 = new Exercise4502();
+    private Exercise02 proxy = exercise4502.getExercise02Port();
     private JButton jbtGetScore = new JButton("Get Score");
     private JTextField jtfName = new JTextField();
     private JTextField jtfScore = new JTextField();
