@@ -43,6 +43,22 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
+    <target name="wsgen-Exercise04" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-net.bohush.exercises.chapter45.webservices.Exercise04.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="net.bohush.exercises.chapter45.webservices.Exercise04" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
+    <target name="wsgen-Exercise05" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-net.bohush.exercises.chapter45.webservices.Exercise05.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="net.bohush.exercises.chapter45.webservices.Exercise05" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -107,5 +123,37 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/net/bohush/exercises/chapter45/exercise03"/>
         <delete dir="${build.generated.dir}/jax-wsCache/Exercise45_03"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-Exercise45_01, wsimport-client-Exercise45_02, wsimport-client-Exercise45_03"/>
+    <target name="wsimport-client-Exercise45_04" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Exercise45_04"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Exercise45_04" destdir="${build.generated.dir}/jax-wsCache/Exercise45_04" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Exercise45_04/wsdl/localhost_8080/exercises2/Exercise45_04.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/exercises2/Exercise45_04?WSDL" xnocompile="true" xendorsed="true" package="net.bohush.exercises.chapter45.exercise04">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Exercise45_04/wsdl/localhost_8080/exercises2/Exercise45_04.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Exercise45_04"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Exercise45_04">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Exercise45_04" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/net/bohush/exercises/chapter45/exercise04"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Exercise45_04"/>
+    </target>
+    <target name="wsimport-client-Exercise45_05" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Exercise45_05"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Exercise45_05" destdir="${build.generated.dir}/jax-wsCache/Exercise45_05" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Exercise45_05/wsdl/localhost_8080/exercises2/Exercise45_05.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/exercises2/Exercise45_05?WSDL" xnocompile="true" xendorsed="true" package="net.bohush.exercises.chapter45.exercise05">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Exercise45_05/wsdl/localhost_8080/exercises2/Exercise45_05.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Exercise45_05"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Exercise45_05">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Exercise45_05" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/net/bohush/exercises/chapter45/exercise05"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Exercise45_05"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Exercise45_01, wsimport-client-Exercise45_02, wsimport-client-Exercise45_03, wsimport-client-Exercise45_04, wsimport-client-Exercise45_05"/>
 </project>

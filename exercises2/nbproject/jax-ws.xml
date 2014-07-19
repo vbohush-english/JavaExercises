@@ -10,6 +10,12 @@
     <service name="Exercise03">
       <implementation-class>net.bohush.exercises.chapter45.webservices.Exercise03</implementation-class>
     </service>
+    <service name="Exercise04">
+      <implementation-class>net.bohush.exercises.chapter45.webservices.Exercise04</implementation-class>
+    </service>
+    <service name="Exercise05">
+      <implementation-class>net.bohush.exercises.chapter45.webservices.Exercise05</implementation-class>
+    </service>
   </services>
   <clients>
     <client name="Exercise45_01">
@@ -117,6 +123,78 @@
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
           <wsimport-option-value>net.bohush.exercises.chapter45.exercise03</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+    <client name="Exercise45_04">
+      <wsdl-url>http://localhost:8080/exercises2/Exercise45_04?WSDL</wsdl-url>
+      <local-wsdl-file>localhost_8080/exercises2/Exercise45_04.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">net.bohush.exercises.chapter45.exercise04</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8080/exercises2/Exercise45_04?WSDL</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>net.bohush.exercises.chapter45.exercise04</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+    <client name="Exercise45_05">
+      <wsdl-url>http://localhost:8080/exercises2/Exercise45_05?WSDL</wsdl-url>
+      <local-wsdl-file>localhost_8080/exercises2/Exercise45_05.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">net.bohush.exercises.chapter45.exercise05</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8080/exercises2/Exercise45_05?WSDL</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>net.bohush.exercises.chapter45.exercise05</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>
