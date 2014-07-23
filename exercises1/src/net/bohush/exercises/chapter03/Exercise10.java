@@ -16,7 +16,7 @@ public class Exercise10 {
 			number2 = temp;
 		}
 
-		// 3. Prompt the student to answer “what is number1 – number2?”
+		// 3. Prompt the student to answer "what is number1 - number2?"
 		System.out.print("What is " + number1 + " - " + number2 + "? ");
 		Scanner input = new Scanner(System.in);
 		int answer = input.nextInt();

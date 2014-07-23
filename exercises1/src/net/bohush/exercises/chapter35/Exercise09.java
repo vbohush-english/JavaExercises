@@ -134,9 +134,9 @@ public class Exercise09 extends JApplet {
 
 	public static class MyResource_uk extends java.util.ListResourceBundle {
 		static final Object[][] contents = {
-			{ "choose", "Виберіть локалізацію"},
-			{ "prior", "Попередній" },
-			{ "next", "Наступний" }
+			{ "choose", "Р’РёР±РµСЂС–С‚СЊ Р»РѕРєР°Р»С–Р·Р°С†С–СЋ"},
+			{ "prior", "РџРѕРїРµСЂРµРґРЅС–Р№" },
+			{ "next", "РќР°СЃС‚СѓРїРЅРёР№" }
 		};
 
 		public Object[][] getContents() {

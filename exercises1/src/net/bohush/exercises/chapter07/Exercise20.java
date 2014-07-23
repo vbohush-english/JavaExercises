@@ -58,7 +58,7 @@ public class Exercise20 {
 	
 	
 	public static int getDisk(int[][] board, int player) {
-		System.out.print("Drop a " + (player == 1 ? "red" : "yellow") + " disk at column (0–6): ");
+		System.out.print("Drop a " + (player == 1 ? "red" : "yellow") + " disk at column (0-6): ");
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		return input.nextInt();
