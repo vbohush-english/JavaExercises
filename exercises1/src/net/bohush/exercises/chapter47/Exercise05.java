@@ -2,25 +2,88 @@ package net.bohush.exercises.chapter47;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JApplet;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class Exercise04 extends JApplet {
+public class Exercise05 extends JApplet {
 
-    public Exercise04() throws HeadlessException {
-        setLayout(new BorderLayout(5, 5));
-        
-        Tree24<Integer> tree = new Tree24<>();
+    private JTextField jtfKey = new JTextField(7);
+    private Tree24<Integer> tree = new Tree24<>();
+    private Tree24Panel tree24Panel = new Tree24Panel(tree); 
+    
+    public Exercise05() throws HeadlessException {
         for (int i = 0; i < 30; i++) {
             tree.insert((int)(Math.random() * 100));
         }
-        add(new Tree24Panel(tree), BorderLayout.CENTER);
+        tree24Panel.repaint();
+        setLayout(new BorderLayout(5, 5));
+        add(tree24Panel, BorderLayout.CENTER);
+        JPanel jpControl = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        jpControl.add(new JLabel("Enter a key:"));
+        jpControl.add(jtfKey);
+        JButton jbSearch = new JButton("Search");
+        jpControl.add(jbSearch);
+        JButton jbInsert = new JButton("Insert");
+        jpControl.add(jbInsert);
+        JButton jbDelete = new JButton("Delete");
+        jpControl.add(jbDelete);        
+        add(jpControl, BorderLayout.SOUTH);
+        jbSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if(tree.search(Integer.parseInt(jtfKey.getText()))) {
+                        JOptionPane.showMessageDialog(null, jtfKey.getText() + " is in the tree", "Search", JOptionPane.INFORMATION_MESSAGE);                        
+                    } else {
+                        JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree", "Search", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree", "Search", JOptionPane.INFORMATION_MESSAGE);
+                }
+                jtfKey.requestFocus();
+            }
+        });
+        jbInsert.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    tree.insert(Integer.parseInt(jtfKey.getText()));
+                    tree24Panel.repaint();
+                    jtfKey.setText("");     
+                } catch (NumberFormatException ex) {
+                }
+                jtfKey.requestFocus();
+            }
+        });
+        jbDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if(!tree.delete(Integer.parseInt(jtfKey.getText()))) {
+                        JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree", "Warning", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        tree24Panel.repaint();
+                        jtfKey.setText("");                             
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, jtfKey.getText() + " is not in the tree", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+                jtfKey.requestFocus();
+            }
+        });
     }
     
     class Tree24Panel extends JPanel {
@@ -68,11 +131,11 @@ public class Exercise04 extends JApplet {
     }
     
     public static void main(String[] args) {
-        Exercise04 applet = new Exercise04();
+        Exercise05 applet = new Exercise05();
         JFrame frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.add(applet, BorderLayout.CENTER);
-        frame.setTitle("Exercise04");
+        frame.setTitle("Exercise05");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
