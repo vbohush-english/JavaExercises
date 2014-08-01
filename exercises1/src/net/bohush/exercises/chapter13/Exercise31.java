@@ -16,7 +16,7 @@ public class Exercise31 extends JFrame{
 	public static void main(String[] args) {
 		
 		if (args.length != 10) {
-			JOptionPane.showMessageDialog(null, "Execute: java Exercise27 x1 y1 x2 y2 x3 y3 x4 y4 x5 y5", "Error", JOptionPane.ERROR_MESSAGE);	
+			JOptionPane.showMessageDialog(null, "Execute: java Exercise31 x1 y1 x2 y2 x3 y3 x4 y4 x5 y5", "Error", JOptionPane.ERROR_MESSAGE);	
 			System.exit(1);
 		}
 		
