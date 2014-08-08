@@ -10,9 +10,9 @@ import java.awt.geom.Line2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Exercise08 extends JFrame{
+public class Exercise09 extends JFrame{
 
-    public Exercise08() throws HeadlessException {
+    public Exercise09() throws HeadlessException {
         setLayout(new BorderLayout());
         add(new FunctionPanel(), BorderLayout.CENTER);
     }
@@ -39,11 +39,11 @@ public class Exercise08 extends JFrame{
             
             double x = 0;
             double y = 0;            
-            int scale = getHeight() / 2 - 50;
+            int scale = 35;
             for (int i = 0; i < getWidth() - 150; i++) {
                 double x2 = i;
-                double y2 = Math.sin(Math.toRadians(x2));
-                g2d.draw(new Line2D.Double(x, -scale * y, x2, -scale * y2));
+                double y2 = Math.log(x2);
+                g2d.draw(new Line2D.Double(x, - scale * y, x2, - scale * y2));
                 x = x2;
                 y = y2;
             }
@@ -51,7 +51,7 @@ public class Exercise08 extends JFrame{
     }
     
     public static void main(String[] args) {
-        JFrame jFrame = new Exercise08();
+        JFrame jFrame = new Exercise09();
         jFrame.setTitle(jFrame.getClass().getName());
         jFrame.setSize(900, 600);
         jFrame.setMinimumSize(new Dimension(400, 400));
