@@ -33,7 +33,6 @@ public class Exercise04 {
         for (int i = 1; i < 300; i++) {
             net.bohush.exercises.chapter10.Exercise02 exercise02 = new net.bohush.exercises.chapter10.Exercise02("Tratata", i, 70);
             double bmi = exercise02.getBMI();
-            System.out.println(i + " " + bmi);
             if (bmi < 18.5) {
                 assertEquals(exercise02.getStatus(), "Underweight");
             } else if (bmi < 25) {

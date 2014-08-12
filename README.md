@@ -1,6 +1,7 @@
-Exercises from the book **"Introduction to Java Programming, Comprehensive Version, 9th Edition"** By Y. Daniel Liang
+Exercises from the book **["Introduction to Java Programming, Comprehensive Version, 9th Edition"](http://www.cs.armstrong.edu/liang/intro9e/toc.html)** By Y. Daniel Liang
 
-http://www.cs.armstrong.edu/liang/intro9e/toc.html
+- folder **[exercises1](https://github.com/vbohush/JavaExercises/tree/master/exercises1)**: exercises from chapters 1 - 41, 46 - 50
+- folder **[exercises2](https://github.com/vbohush/JavaExercises/tree/master/exercises2)**: exercises from chapters 42 - 45
 
 | Chapter Number       | Chapter Name           | Number of Exercises  |
 | ------------- |-------------| -----|
@@ -55,4 +56,5 @@ http://www.cs.armstrong.edu/liang/intro9e/toc.html
 |49 | Java 2D | 18|
 |50 | Testing Using JUnit | 4|
 |**Total** |  | **943**|
+
 
