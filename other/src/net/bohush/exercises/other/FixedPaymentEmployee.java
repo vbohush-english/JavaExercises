@@ -21,5 +21,10 @@ public class FixedPaymentEmployee extends Employee{
     public double getAverageMonthlySalary() {
         return monthlyPayment;
     }
+
+    @Override
+    public String getData() {
+        return super.getData() + "\t" + monthlyPayment;
+    }
     
 }

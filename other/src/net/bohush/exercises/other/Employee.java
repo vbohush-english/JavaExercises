@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +39,11 @@ public abstract class Employee implements Comparable<Employee>{
     public String toString() {
         return id + ".\t" + name + ":\t$" + String.format("%.2f", getAverageMonthlySalary());
     }
-
+    
+    public String getData() {
+        return id + "\t" + name;
+    }
+    
     @Override
     public int compareTo(Employee o) {
         double thisSalary = this.getAverageMonthlySalary();
@@ -82,7 +87,42 @@ public abstract class Employee implements Comparable<Employee>{
         for (int i = employees.size() - 3; i < employees.size(); i++) {
             System.out.println(employees.get(i).getId());   
         }
-            
+           
+        File file = new File("employees.txt");
+        try (PrintWriter output = new PrintWriter(file)) {
+            for (Employee employee : employees) {
+                if(employee instanceof HourlyWageEmployee) {
+                    output.println(1 + "\t" + employee.getData());    
+                } else {
+                    output.println(2 + "\t" + employee.getData());    
+                }   
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("\nEmployees are written to the file");  
+        
+        System.out.println("\nEmployees are read from the file:");  
+        ArrayList<Employee> employees2;
+        try (Scanner input = new Scanner(file)) {
+            employees2 = new ArrayList<>();
+            while(input.hasNextLine()) {
+                String[] newEmployee = input.nextLine().split("\t");
+                if(newEmployee.length == 4) {
+                    if(newEmployee[0].equals("1")) {
+                        employees2.add(new HourlyWageEmployee(newEmployee[2], Integer.parseInt(newEmployee[1]), Double.parseDouble(newEmployee[3])));
+                    } else if(newEmployee[0].equals("2")) {
+                        employees2.add(new FixedPaymentEmployee(newEmployee[2], Integer.parseInt(newEmployee[1]), Double.parseDouble(newEmployee[3])));
+                    }
+                }
+            }
+            for (Employee employee : employees2) {
+                System.out.println(employee);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
 }

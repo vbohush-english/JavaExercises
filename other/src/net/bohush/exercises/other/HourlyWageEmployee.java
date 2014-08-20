@@ -22,4 +22,8 @@ public class HourlyWageEmployee extends Employee{
         return 20.8 * 8 * hourlyRate;
     }
     
+    @Override
+    public String getData() {
+        return super.getData() + "\t" + hourlyRate;
+    }    
 }
